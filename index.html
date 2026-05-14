@@ -4,162 +4,314 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
 <meta name="theme-color" content="#020617" />
-<title>HERO OS v2.5</title>
+<title>HERO OS v2.6</title>
 
 <style>
 :root{
-  --bg:#020617;--panel:#0f172a;--panel2:#111827;--line:#263247;
-  --text:#eef2ff;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;
-  --red:#ef4444;--orange:#f59e0b;--purple:#a78bfa;
+  --bg:#020617;
+  --panel:#0f172a;
+  --panel2:#111827;
+  --line:#263247;
+  --text:#eef2ff;
+  --muted:#94a3b8;
+  --blue:#38bdf8;
+  --green:#22c55e;
+  --red:#ef4444;
+  --purple:#a78bfa;
 }
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:radial-gradient(circle at top,#123155 0%,transparent 35%),
-  radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),#020617;color:var(--text)
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(circle at top,#123155 0%,transparent 35%),
+    radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),
+    #020617;
+  color:var(--text);
 }
-.app{max-width:520px;margin:auto;min-height:100vh;padding:18px;padding-bottom:92px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.logo h1{margin:0;font-size:30px;letter-spacing:2px}
-.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.badge{color:var(--blue);border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);padding:8px 12px;border-radius:999px;font-size:12px}
-.card{background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 20px 45px rgba(0,0,0,.28)}
-.face-card{text-align:center;padding:24px 16px;background:radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),linear-gradient(145deg,#020617,#0f172a)}
-.face{width:190px;height:190px;margin:8px auto 18px;border-radius:50%;border:2px solid rgba(56,189,248,.6);position:relative;box-shadow:0 0 25px rgba(56,189,248,.35),inset 0 0 35px rgba(56,189,248,.18);animation:pulse 3s infinite}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding:14px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:10px;
+}
+
+.logo h1{
+  margin:0;
+  font-size:30px;
+  letter-spacing:2px;
+}
+
+.logo p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.credit{
+  margin-top:3px;
+  color:#7dd3fc;
+  font-size:11px;
+}
+
+.badge{
+  color:var(--blue);
+  border:1px solid rgba(56,189,248,.45);
+  background:rgba(56,189,248,.12);
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+}
+
+.card{
+  background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:13px;
+  margin-bottom:10px;
+  box-shadow:0 18px 38px rgba(0,0,0,.25);
+}
+
+.face-card{
+  text-align:center;
+  padding:16px 13px;
+  background:
+    radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),
+    linear-gradient(145deg,#020617,#0f172a);
+}
+
+.face{
+  width:145px;
+  height:145px;
+  margin:2px auto 10px;
+  border-radius:50%;
+  border:2px solid rgba(56,189,248,.6);
+  position:relative;
+  box-shadow:0 0 25px rgba(56,189,248,.35),inset 0 0 35px rgba(56,189,248,.18);
+  animation:pulse 3s infinite;
+}
+
 .face.listening{animation:pulseFast 1s infinite}
 .face.thinking{animation:spinGlow 2s infinite}
 .face.speaking{animation:speakGlow .8s infinite}
-.face::before{content:"";position:absolute;inset:25px;border-radius:50%;border:1px dashed rgba(56,189,248,.45);animation:spin 12s linear infinite}
-.eye{width:34px;height:16px;background:var(--blue);border-radius:999px;position:absolute;top:72px;box-shadow:0 0 18px var(--blue)}
-.left{left:48px}.right{right:48px}
-.mouth{width:70px;height:10px;background:var(--blue);border-radius:999px;position:absolute;left:50%;bottom:55px;transform:translateX(-50%);box-shadow:0 0 18px var(--blue)}
+
+.face::before{
+  content:"";
+  position:absolute;
+  inset:20px;
+  border-radius:50%;
+  border:1px dashed rgba(56,189,248,.45);
+  animation:spin 12s linear infinite;
+}
+
+.eye{
+  width:27px;
+  height:13px;
+  background:var(--blue);
+  border-radius:999px;
+  position:absolute;
+  top:55px;
+  box-shadow:0 0 18px var(--blue);
+}
+
+.left{left:37px}
+.right{right:37px}
+
+.mouth{
+  width:55px;
+  height:9px;
+  background:var(--blue);
+  border-radius:999px;
+  position:absolute;
+  left:50%;
+  bottom:42px;
+  transform:translateX(-50%);
+  box-shadow:0 0 18px var(--blue);
+}
+
 .face.speaking .mouth{animation:mouthMove .35s infinite}
-@keyframes mouthMove{50%{height:24px;width:58px;border-radius:18px}}
+
+@keyframes mouthMove{50%{height:22px;width:48px;border-radius:18px}}
 @keyframes pulse{50%{box-shadow:0 0 45px rgba(56,189,248,.55),inset 0 0 45px rgba(56,189,248,.25)}}
 @keyframes pulseFast{50%{box-shadow:0 0 65px rgba(34,197,94,.75),inset 0 0 50px rgba(34,197,94,.25)}}
 @keyframes spinGlow{50%{box-shadow:0 0 65px rgba(167,139,250,.75),inset 0 0 50px rgba(167,139,250,.25)}}
 @keyframes speakGlow{50%{box-shadow:0 0 65px rgba(56,189,248,.9),inset 0 0 50px rgba(56,189,248,.35)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.status{color:var(--green);font-size:13px}
-h2{margin:0 0 10px;font-size:18px}
-p{color:var(--muted);line-height:1.45}
-textarea,input{width:100%;background:#020617;border:1px solid var(--line);color:var(--text);border-radius:16px;padding:13px;font-size:15px;margin:6px 0}
-textarea{min-height:95px;resize:vertical}
-button{border:0;border-radius:16px;padding:13px 14px;font-weight:800;font-size:14px;background:var(--blue);color:#00111f;cursor:pointer}
-button.secondary{background:#1f2937;color:var(--text);border:1px solid var(--line)}
-button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba(239,68,68,.35)}
-.row{display:flex;gap:8px}.row button{flex:1}
-.response{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;white-space:pre-wrap;min-height:160px;color:#dbeafe;font-size:15px;line-height:1.45}
-.info,.small{font-size:13px;color:var(--muted);margin-top:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick{background:#07111f;color:var(--text);border:1px solid var(--line);min-height:58px}
-.item{border-top:1px solid var(--line);padding:10px 0;color:#dbeafe;font-size:14px}
-.item small{color:var(--muted)}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(2,6,23,.97);border-top:1px solid var(--line);padding:8px}
-.nav button{background:transparent;color:var(--muted);font-size:12px}
-.nav button.active{color:var(--blue)}
-.page{display:none}.page.active{display:block}
+
+.status{
+  color:var(--green);
+  font-size:13px;
+}
+
+h2{
+  margin:0 0 8px;
+  font-size:17px;
+}
+
+.small{
+  font-size:12px;
+  color:var(--muted);
+  margin:0 0 6px;
+}
+
+textarea{
+  width:100%;
+  background:#020617;
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:15px;
+  padding:12px;
+  font-size:15px;
+  margin:5px 0;
+  resize:vertical;
+}
+
+#command{
+  min-height:88px;
+}
+
+.response{
+  background:#020617;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:13px;
+  white-space:pre-wrap;
+  min-height:145px;
+  max-height:210px;
+  overflow:auto;
+  color:#dbeafe;
+  font-size:15px;
+  line-height:1.45;
+}
+
+button{
+  border:0;
+  border-radius:15px;
+  padding:12px 10px;
+  font-weight:800;
+  font-size:14px;
+  background:var(--blue);
+  color:#00111f;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#1f2937;
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+button.danger{
+  background:rgba(239,68,68,.16);
+  color:#fecaca;
+  border:1px solid rgba(239,68,68,.35);
+}
+
+.row3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:8px;
+}
+
+.info{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:8px;
+}
+
+.hidden{
+  display:none;
+}
 </style>
 </head>
 
 <body>
 <div class="app">
+
   <div class="header">
-    <div class="logo"><h1>HERO</h1><p>Companion AI Command System</p></div>
-    <div class="badge">v2.5</div>
+    <div class="logo">
+      <h1>HERO</h1>
+      <p>Companion AI Command System</p>
+      <div class="credit">Developed by Shriganesh Manurkar</div>
+    </div>
+    <div class="badge">v2.6</div>
   </div>
 
-  <section id="hero" class="page active">
-    <div class="card face-card">
-      <div class="face" id="heroFace">
-        <div class="eye left"></div><div class="eye right"></div><div class="mouth"></div>
-      </div>
-      <div class="status" id="heroStatus">HERO online • Ready when you are</div>
+  <div class="card face-card">
+    <div class="face" id="heroFace">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+    <div class="status" id="heroStatus">HERO online • Ready when you are</div>
+  </div>
+
+  <div class="card">
+    <h2>Talk to HERO</h2>
+    <p class="small">Tap Speak, talk naturally, and HERO will respond.</p>
+
+    <textarea id="command" placeholder="Example: Hero, should I leave for office now?"></textarea>
+
+    <div class="row3">
+      <button onclick="startVoice()">🎤 Speak</button>
+      <button onclick="processCommand(false)">Enter</button>
+      <button class="secondary" onclick="clearCommand()">Clear</button>
     </div>
 
-    <div class="card">
-      <h2>Talk to HERO</h2>
-      <p class="small">Tap Speak, talk naturally, and HERO will reply automatically.</p>
-      <textarea id="command" placeholder="Example: Hero, should I leave for office now?"></textarea>
-      <div class="row">
-        <button onclick="startVoice()">🎤 Speak</button>
-        <button class="danger" onclick="stopSpeaking()">⏹ Stop</button>
-      </div>
-      <div class="row" style="margin-top:8px">
-        <button class="secondary" onclick="processCommand(false)">Type Backup</button>
-        <button class="secondary" onclick="clearCommand()">Clear</button>
-      </div>
-      <div class="info" id="locationInfo">Location not detected yet.</div>
-    </div>
+    <div class="info" id="locationInfo">Location not detected yet.</div>
+  </div>
 
-    <div class="card">
-      <h2>Quick Actions</h2>
-      <div class="grid">
-        <button class="quick" onclick="quickCommand('Hero, do an office check for me now.')">Office Check</button>
-        <button class="quick" onclick="quickCommand('Hero, check weather around me and give quick advice.')">Weather Check</button>
-        <button class="quick" onclick="quickCommand('Hero, help me calculate my shopping bill.')">Calculate Bill</button>
-        <button class="quick" onclick="quickCommand('Hero, give me a short disciplined focus plan for today.')">Daily Focus</button>
-      </div>
-    </div>
+  <div class="card">
+    <h2>HERO Response</h2>
+    <div class="response" id="response">Ready.</div>
 
-    <div class="card">
-      <h2>HERO Response</h2>
-      <div class="response" id="response">Ready.</div>
-      <div class="row" style="margin-top:8px">
-        <button onclick="copyResponse()">Copy</button>
-        <button class="secondary" onclick="speakResponse()">🔊 Read Again</button>
-      </div>
+    <div class="row3">
+      <button onclick="copyResponse()">Copy</button>
+      <button class="secondary" onclick="speakResponse()">🔊 Read Again</button>
+      <button class="danger" onclick="stopSpeaking()">⏹ Stop</button>
     </div>
-  </section>
+  </div>
 
-  <section id="discipline" class="page">
-    <div class="card">
-      <h2>Discipline Planner</h2>
-      <input id="taskInput" placeholder="Add routine, goal or task..." />
-      <button onclick="addTask()">Add Discipline Item</button>
-      <div id="taskList"></div>
-    </div>
-  </section>
+  <div class="card hidden" id="memoryCard">
+    <h2>HERO Memory</h2>
+    <textarea id="memoryBox" placeholder="Office address, home area, routine, preferences..."></textarea>
+    <button onclick="saveMemory()">Save Memory</button>
+  </div>
 
-  <section id="memory" class="page">
-    <div class="card">
-      <h2>HERO Memory</h2>
-      <input id="homeArea" placeholder="Home area / city" />
-      <input id="officeArea" placeholder="Office address / area" />
-      <input id="routine" placeholder="Daily routine / working hours" />
-      <textarea id="memoryBox" placeholder="Preferences, goals, important notes..."></textarea>
-      <button onclick="saveMemory()">Save Memory</button>
-    </div>
-    <div class="card">
-      <h2>Command History</h2>
-      <div id="history"></div>
-    </div>
-  </section>
 </div>
 
-<nav class="nav">
-  <button class="active" onclick="showPage('hero',this)">HERO</button>
-  <button onclick="showPage('discipline',this)">Discipline</button>
-  <button onclick="showPage('memory',this)">Memory</button>
-</nav>
-
 <script>
-const storeKey="heroV25";
+const storeKey="heroV26";
 const API_URL="/api/hero";
 
-let old=JSON.parse(localStorage.getItem("heroV24"))||{};
+let old=JSON.parse(localStorage.getItem("heroV25"))||{};
 let data=JSON.parse(localStorage.getItem(storeKey))||{
   memory:old.memory||"",
-  homeArea:"",
-  officeArea:"",
-  routine:"",
-  tasks:old.tasks||[],
+  homeArea:old.homeArea||"",
+  officeArea:old.officeArea||"",
+  routine:old.routine||"",
   history:old.history||[]
 };
 
-let currentWeather=null,currentLocation=null,lastResponse="",isSpeaking=false;
+let currentWeather=null;
+let currentLocation=null;
+let lastResponse="";
+let isSpeaking=false;
 
-function save(){localStorage.setItem(storeKey,JSON.stringify(data));render();}
+function save(){
+  localStorage.setItem(storeKey,JSON.stringify(data));
+}
 
 function setState(text,state="idle"){
   document.getElementById("heroStatus").innerText=text;
@@ -168,37 +320,6 @@ function setState(text,state="idle"){
   if(state==="listening")f.classList.add("listening");
   if(state==="thinking")f.classList.add("thinking");
   if(state==="speaking")f.classList.add("speaking");
-}
-
-function render(){
-  document.getElementById("memoryBox").value=data.memory||"";
-  document.getElementById("homeArea").value=data.homeArea||"";
-  document.getElementById("officeArea").value=data.officeArea||"";
-  document.getElementById("routine").value=data.routine||"";
-
-  const t=document.getElementById("taskList");
-  t.innerHTML=data.tasks.length?"":"<p>No discipline items yet.</p>";
-  data.tasks.forEach(x=>{
-    const d=document.createElement("div");d.className="item";
-    d.innerHTML=`<input type="checkbox" ${x.done?"checked":""} onchange="toggleTask(${x.id})"> ${x.done?'<s>'+x.text+'</s>':x.text}
-    <button class="danger" style="float:right;padding:6px 10px" onclick="deleteTask(${x.id})">×</button>`;
-    t.appendChild(d);
-  });
-
-  const h=document.getElementById("history");
-  h.innerHTML=data.history.length?"":"<p>No history yet.</p>";
-  data.history.forEach(x=>{
-    const d=document.createElement("div");d.className="item";
-    d.innerHTML=`<small>${x.date}</small><br><b>${x.command}</b><br><br>${x.response}`;
-    h.appendChild(d);
-  });
-}
-
-function showPage(id,btn){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
 }
 
 function clearCommand(){
@@ -211,9 +332,6 @@ function clearCommand(){
 
 function saveMemory(){
   data.memory=document.getElementById("memoryBox").value;
-  data.homeArea=document.getElementById("homeArea").value;
-  data.officeArea=document.getElementById("officeArea").value;
-  data.routine=document.getElementById("routine").value;
   save();
   alert("HERO memory saved.");
 }
@@ -227,33 +345,11 @@ Other memory: ${data.memory || "Not saved"}
 `;
 }
 
-function quickCommand(text){
-  document.getElementById("command").value=text;
-  processCommand(false);
-}
-
-function addTask(){
-  const i=document.getElementById("taskInput"),text=i.value.trim();
-  if(!text)return;
-  data.tasks.unshift({id:Date.now(),text,done:false});
-  i.value="";
-  save();
-}
-
-function toggleTask(id){
-  data.tasks=data.tasks.map(t=>t.id===id?{...t,done:!t.done}:t);
-  save();
-}
-
-function deleteTask(id){
-  data.tasks=data.tasks.filter(t=>t.id!==id);
-  save();
-}
-
 function startVoice(){
   stopSpeaking();
 
   const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
   if(!SpeechRecognition){
     alert("Speech recognition not supported. Use iPhone keyboard dictation mic.");
     return;
@@ -273,7 +369,9 @@ function startVoice(){
     await processCommand(true);
   };
 
-  r.onerror=()=>setState("Voice capture failed • Try again","idle");
+  r.onerror=()=>{
+    setState("Voice capture failed • Try again","idle");
+  };
 
   r.onend=()=>{
     if(document.getElementById("heroStatus").innerText==="HERO listening..."){
@@ -284,18 +382,33 @@ function startVoice(){
 
 async function getLocation(){
   return new Promise((resolve,reject)=>{
-    if(!navigator.geolocation){reject("Geolocation not supported");return;}
-    navigator.geolocation.getCurrentPosition(pos=>{
-      currentLocation={lat:pos.coords.latitude,lon:pos.coords.longitude};
-      document.getElementById("locationInfo").innerText=
-      `Location detected • Lat ${currentLocation.lat.toFixed(2)}, Lon ${currentLocation.lon.toFixed(2)}`;
-      resolve(currentLocation);
-    },err=>reject(err.message),{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
+    if(!navigator.geolocation){
+      reject("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos=>{
+        currentLocation={
+          lat:pos.coords.latitude,
+          lon:pos.coords.longitude
+        };
+
+        document.getElementById("locationInfo").innerText=
+        `Location detected • Lat ${currentLocation.lat.toFixed(2)}, Lon ${currentLocation.lon.toFixed(2)}`;
+
+        resolve(currentLocation);
+      },
+      err=>reject(err.message),
+      {enableHighAccuracy:false,timeout:10000,maximumAge:300000}
+    );
   });
 }
 
 async function getWeather(lat,lon){
-  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=1&timezone=auto`;
+  const url=
+  `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=1&timezone=auto`;
+
   const res=await fetch(url);
   currentWeather=await res.json();
   return currentWeather;
@@ -303,27 +416,40 @@ async function getWeather(lat,lon){
 
 function needsContext(cmd){
   const t=cmd.toLowerCase();
-  return t.includes("weather")||t.includes("office")||t.includes("leave")||t.includes("travel")||t.includes("route")||t.includes("rain");
+  return t.includes("weather")||
+         t.includes("office")||
+         t.includes("leave")||
+         t.includes("travel")||
+         t.includes("route")||
+         t.includes("rain");
 }
 
 function isOfficeCheck(cmd){
   const t=cmd.toLowerCase();
-  return t.includes("office") || t.includes("work") || t.includes("commute");
+  return t.includes("office")||
+         t.includes("work")||
+         t.includes("commute");
 }
 
 async function processCommand(fromVoice=false){
   const cmd=document.getElementById("command").value.trim();
-  if(!cmd){alert("Please enter or speak a command.");return;}
+
+  if(!cmd){
+    alert("Please enter or speak a command.");
+    return;
+  }
 
   setState("HERO thinking...","thinking");
   document.getElementById("response").innerText="Thinking...";
 
-  let reply="",contextData="";
+  let reply="";
+  let contextData="";
 
   try{
+
     if(isOfficeCheck(cmd) && !data.officeArea.trim()){
-      reply="Quick note: I don’t know your office location yet. Save it in Memory first, then I can check weather + travel context properly.";
-      finishResponse(cmd,reply,fromVoice);
+      reply="Quick note: I don’t know your office location yet. Save it in Memory first, then I can check properly.";
+      finishResponse(cmd,reply);
       return;
     }
 
@@ -350,14 +476,15 @@ Weather code ${currentWeather.current_weather.weathercode}
     }
 
     const companionCommand=`
-User command: ${cmd}
+User command:
+${cmd}
 
 Answer style:
 - Keep it short and summary-like.
-- Sound like a friendly smart companion, not a formal report.
+- Sound like a friendly smart companion.
 - Give direct recommendation first.
 - Use 3 to 5 short bullet points maximum.
-- If information is missing, say clearly what is missing.
+- If information is missing, say what is missing.
 - Do not over-explain.
 `;
 
@@ -383,15 +510,19 @@ Answer style:
     reply=`I couldn’t reach my AI brain right now. Check internet or backend.\n\nError: ${err.message}`;
   }
 
-  finishResponse(cmd,reply,fromVoice);
+  finishResponse(cmd,reply);
 }
 
-function finishResponse(cmd,reply,fromVoice){
+function finishResponse(cmd,reply){
   lastResponse=reply;
   document.getElementById("response").innerText=reply;
-  setState("HERO speaking...","speaking");
 
-  data.history.unshift({date:new Date().toLocaleString(),command:cmd,response:reply});
+  data.history.unshift({
+    date:new Date().toLocaleString(),
+    command:cmd,
+    response:reply
+  });
+
   data.history=data.history.slice(0,20);
   save();
 
@@ -405,6 +536,7 @@ function copyResponse(){
 
 function speakResponse(auto=false){
   const text=lastResponse||document.getElementById("response").innerText;
+
   if(!("speechSynthesis" in window)){
     if(!auto) alert("Speech output not supported.");
     setState("HERO response ready","idle");
@@ -412,6 +544,7 @@ function speakResponse(auto=false){
   }
 
   speechSynthesis.cancel();
+
   const u=new SpeechSynthesisUtterance(text);
   u.lang="en-IN";
   u.rate=1.02;
@@ -437,11 +570,12 @@ function stopSpeaking(){
   if("speechSynthesis" in window){
     speechSynthesis.cancel();
   }
+
   isSpeaking=false;
   setState("HERO stopped • Ready when you are","idle");
 }
 
-render();
+document.getElementById("memoryBox").value=data.memory||"";
 </script>
 </body>
 </html>
