@@ -56,8 +56,26 @@ ${context || "No live context provided."}
       });
     }
 
+    let finalReply = "";
+
+    try {
+      if (data.output_text) {
+        finalReply = data.output_text;
+      } else if (
+        data.output &&
+        data.output[0] &&
+        data.output[0].content &&
+        data.output[0].content[0] &&
+        data.output[0].content[0].text
+      ) {
+        finalReply = data.output[0].content[0].text;
+      }
+    } catch (e) {
+      finalReply = "";
+    }
+
     return res.status(200).json({
-      reply: data.output_text || "HERO received a response but could not read it."
+      reply: finalReply || "HERO AI responded but message parsing failed."
     });
 
   } catch (error) {
