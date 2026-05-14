@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#050814">
-<title>HERO OS v1.1</title>
+<meta name="theme-color" content="#020617">
+<title>HERO OS Core</title>
 
 <style>
 :root{
-  --bg:#050814;
-  --panel:#0d1324;
-  --panel2:#121a30;
+  --bg:#020617;
+  --panel:#0f172a;
+  --panel2:#111827;
   --line:#263247;
   --text:#eef2ff;
-  --muted:#9ca3af;
+  --muted:#94a3b8;
   --blue:#38bdf8;
   --green:#22c55e;
-  --orange:#f59e0b;
   --red:#ef4444;
-  --purple:#a78bfa;
+  --orange:#f59e0b;
 }
 
 *{box-sizing:border-box}
@@ -27,9 +26,9 @@ body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   background:
-    radial-gradient(circle at top left,#102a44 0%,transparent 35%),
-    radial-gradient(circle at top right,#29144a 0%,transparent 30%),
-    linear-gradient(180deg,#050814,#02040a);
+    radial-gradient(circle at top,#123155 0%,transparent 35%),
+    radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),
+    #020617;
   color:var(--text);
 }
 
@@ -38,20 +37,20 @@ body{
   margin:auto;
   min-height:100vh;
   padding:18px;
-  padding-bottom:100px;
+  padding-bottom:90px;
 }
 
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:18px;
+  margin-bottom:14px;
 }
 
 .logo h1{
   margin:0;
+  letter-spacing:2px;
   font-size:30px;
-  letter-spacing:1.5px;
 }
 
 .logo p{
@@ -61,53 +60,120 @@ body{
 }
 
 .badge{
-  border:1px solid rgba(56,189,248,.4);
   color:var(--blue);
+  border:1px solid rgba(56,189,248,.45);
+  background:rgba(56,189,248,.12);
   padding:8px 12px;
   border-radius:999px;
-  background:rgba(56,189,248,.12);
   font-size:12px;
 }
 
 .card{
-  background:linear-gradient(145deg,rgba(13,19,36,.96),rgba(18,26,48,.96));
+  background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));
   border:1px solid var(--line);
   border-radius:24px;
   padding:16px;
   margin-bottom:14px;
-  box-shadow:0 18px 40px rgba(0,0,0,.28);
+  box-shadow:0 20px 45px rgba(0,0,0,.28);
 }
 
-.hero{
-  background:linear-gradient(145deg,#0f172a,#172554,#111827);
+.face-card{
+  text-align:center;
+  padding:24px 16px;
+  background:
+    radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),
+    linear-gradient(145deg,#020617,#0f172a);
+}
+
+.face{
+  width:190px;
+  height:190px;
+  margin:8px auto 18px;
+  border-radius:50%;
+  border:2px solid rgba(56,189,248,.6);
+  position:relative;
+  box-shadow:
+    0 0 25px rgba(56,189,248,.35),
+    inset 0 0 35px rgba(56,189,248,.18);
+  animation:pulse 3s infinite;
+}
+
+.face::before{
+  content:"";
+  position:absolute;
+  inset:25px;
+  border-radius:50%;
+  border:1px dashed rgba(56,189,248,.45);
+  animation:spin 12s linear infinite;
+}
+
+.eye{
+  width:34px;
+  height:16px;
+  background:var(--blue);
+  border-radius:999px;
+  position:absolute;
+  top:72px;
+  box-shadow:0 0 18px var(--blue);
+}
+
+.eye.left{left:48px}
+.eye.right{right:48px}
+
+.mouth{
+  width:70px;
+  height:10px;
+  background:var(--blue);
+  border-radius:999px;
+  position:absolute;
+  left:50%;
+  bottom:55px;
+  transform:translateX(-50%);
+  box-shadow:0 0 18px var(--blue);
+}
+
+.status{
+  color:var(--green);
+  font-size:13px;
+}
+
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 20px rgba(56,189,248,.25), inset 0 0 30px rgba(56,189,248,.14)}
+  50%{box-shadow:0 0 45px rgba(56,189,248,.55), inset 0 0 45px rgba(56,189,248,.25)}
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
 
 h2{margin:0 0 10px;font-size:18px}
-h3{margin:0 0 8px;font-size:15px}
 p{color:var(--muted);line-height:1.45}
 
-input,textarea,select{
+textarea,input,select{
   width:100%;
-  background:#050914;
+  background:#020617;
   border:1px solid var(--line);
   color:var(--text);
-  border-radius:15px;
-  padding:12px;
+  border-radius:16px;
+  padding:13px;
   font-size:15px;
   margin:6px 0;
 }
 
-textarea{min-height:85px;resize:vertical}
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
 
 button{
   border:0;
-  border-radius:15px;
-  padding:12px 14px;
-  font-weight:700;
+  border-radius:16px;
+  padding:13px 14px;
+  font-weight:800;
+  font-size:14px;
   background:var(--blue);
   color:#00111f;
-  font-size:14px;
-  cursor:pointer;
 }
 
 button.secondary{
@@ -116,78 +182,30 @@ button.secondary{
   border:1px solid var(--line);
 }
 
-button.danger{
-  background:rgba(239,68,68,.14);
-  color:#fecaca;
-  border:1px solid rgba(239,68,68,.35);
+.row{
+  display:flex;
+  gap:8px;
 }
 
-.row{display:flex;gap:8px}
 .row button{flex:1}
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.tile{
-  background:#07111f;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:14px;
-  min-height:88px;
-}
-
-.tile span{font-size:24px}
-.tile strong{display:block;margin-top:8px;font-size:14px}
-.tile small{color:var(--muted)}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.stat{
-  background:#07111f;
+.response{
+  background:#020617;
   border:1px solid var(--line);
   border-radius:18px;
-  padding:12px;
-  text-align:center;
+  padding:14px;
+  white-space:pre-wrap;
+  min-height:130px;
+  color:#dbeafe;
 }
 
-.stat strong{display:block;font-size:20px;color:var(--blue)}
-.stat small{color:var(--muted);font-size:12px}
-
-.item{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  border-bottom:1px solid var(--line);
-  padding:10px 0;
+.log{
+  font-size:13px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:10px;
+  margin-top:10px;
 }
-
-.item:last-child{border-bottom:0}
-.item input{width:auto;margin-top:3px}
-.item.done span{text-decoration:line-through;color:var(--muted)}
-
-.progress{
-  width:100%;
-  height:8px;
-  background:#030712;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:8px;
-}
-
-.bar{
-  height:100%;
-  background:linear-gradient(90deg,var(--blue),var(--green));
-}
-
-.page{display:none}
-.page.active{display:block}
 
 .nav{
   position:fixed;
@@ -197,38 +215,22 @@ button.danger{
   max-width:520px;
   width:100%;
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:rgba(5,9,20,.97);
+  grid-template-columns:repeat(3,1fr);
+  background:rgba(2,6,23,.97);
   border-top:1px solid var(--line);
   padding:8px;
-  z-index:20;
 }
 
 .nav button{
   background:transparent;
   color:var(--muted);
-  font-size:11px;
-  padding:8px 2px;
+  font-size:12px;
 }
 
 .nav button.active{color:var(--blue)}
 
-.ai-box{
-  background:#050914;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px;
-  white-space:pre-wrap;
-  color:#dbeafe;
-  min-height:110px;
-}
-
-.footer{
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  margin-top:20px;
-}
+.page{display:none}
+.page.active{display:block}
 
 .small{font-size:12px;color:var(--muted)}
 </style>
@@ -239,189 +241,75 @@ button.danger{
 
   <div class="header">
     <div class="logo">
-      <h1>HERO OS</h1>
-      <p>Personal AI Command Center</p>
+      <h1>HERO</h1>
+      <p>Personal AI Command System</p>
     </div>
-    <div class="badge">v1.1</div>
+    <div class="badge">Core v2.0</div>
   </div>
 
-  <section id="today" class="page active">
-    <div class="card hero">
-      <h2>Good Day, Commander</h2>
-      <p id="todayDate"></p>
-      <p>“Clarity first. Action next. Progress daily.”</p>
-      <div class="stats">
-        <div class="stat"><strong id="openCount">0</strong><small>Open</small></div>
-        <div class="stat"><strong id="doneCount">0</strong><small>Done</small></div>
-        <div class="stat"><strong id="projectCount">0</strong><small>Projects</small></div>
+  <section id="core" class="page active">
+    <div class="card face-card">
+      <div class="face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="status" id="heroStatus">HERO online • Awaiting command</div>
+    </div>
+
+    <div class="card">
+      <h2>Command HERO</h2>
+      <p class="small">Use iPhone keyboard dictation mic, or type your command below.</p>
+      <textarea id="command" placeholder="Example: Hero, I bought half kg potato at 40 per kg, 2 kg tomato at 10 per kg and 3 kg onion at 15 per kg. Calculate my bill."></textarea>
+      <div class="row">
+        <button onclick="processCommand()">Activate HERO</button>
+        <button class="secondary" onclick="clearCommand()">Clear</button>
       </div>
     </div>
 
     <div class="card">
-      <h2>Morning Briefing</h2>
-      <textarea id="briefing" placeholder="Today’s focus, appointments, reminders, weather, finance notes..."></textarea>
-      <button onclick="saveBriefing()">Save Briefing</button>
-    </div>
-
-    <div class="card">
-      <h2>Top Priorities</h2>
-      <input id="priorityInput" placeholder="Add today’s top priority">
-      <button onclick="addTask('priority')">Add Priority</button>
-      <div id="priorityList"></div>
+      <h2>HERO Response</h2>
+      <div id="response" class="response">Ready.</div>
     </div>
   </section>
 
   <section id="planner" class="page">
     <div class="card">
-      <h2>Daily Planner</h2>
-      <input id="taskInput" placeholder="Add a task">
-      <button onclick="addTask('task')">Add Task</button>
+      <h2>Discipline Planner</h2>
+      <input id="taskInput" placeholder="Add task or routine">
+      <button onclick="addTask()">Add</button>
       <div id="taskList"></div>
     </div>
+  </section>
+
+  <section id="memory" class="page">
+    <div class="card">
+      <h2>HERO Memory</h2>
+      <textarea id="memoryBox" placeholder="Store your goals, routines, office location, preferences, important notes..."></textarea>
+      <button onclick="saveMemory()">Save Memory</button>
+    </div>
 
     <div class="card">
-      <h2>Quick Notes</h2>
-      <textarea id="notes" placeholder="Capture thoughts, ideas, reminders..."></textarea>
-      <button onclick="saveNotes()">Save Notes</button>
+      <h2>Command History</h2>
+      <div id="history"></div>
     </div>
   </section>
 
-  <section id="projects" class="page">
-    <div class="card">
-      <h2>Hero Projects</h2>
-      <div class="grid">
-        <div class="tile"><span>✈️</span><strong>Travel Plans</strong><small>Trips & routes</small></div>
-        <div class="tile"><span>💰</span><strong>Financial Goals</strong><small>Savings & plans</small></div>
-        <div class="tile"><span>⚙️</span><strong>Engineering Projects</strong><small>CAD & automation</small></div>
-        <div class="tile"><span>📚</span><strong>Books</strong><small>Writing ideas</small></div>
-        <div class="tile"><span>🎙️</span><strong>Podcast</strong><small>Episodes & scripts</small></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Add Project Update</h2>
-      <select id="projectType">
-        <option>Travel Plans</option>
-        <option>Financial Goals</option>
-        <option>Engineering Projects</option>
-        <option>Books</option>
-        <option>Podcast</option>
-      </select>
-      <input id="projectTitle" placeholder="Project title">
-      <textarea id="projectNote" placeholder="Next action / update"></textarea>
-      <select id="projectProgress">
-        <option value="10">10% Started</option>
-        <option value="25">25% Planning</option>
-        <option value="50">50% In Progress</option>
-        <option value="75">75% Almost Done</option>
-        <option value="100">100% Complete</option>
-      </select>
-      <button onclick="saveProject()">Save Project</button>
-    </div>
-
-    <div class="card">
-      <h2>Project Log</h2>
-      <div id="projectList"></div>
-    </div>
-  </section>
-
-  <section id="learn" class="page">
-    <div class="card">
-      <h2>Hero Learn</h2>
-      <div class="grid">
-        <div class="tile"><span>🔬</span><strong>Science</strong><small>Concepts</small></div>
-        <div class="tile"><span>🧲</span><strong>Physics & Mechanics</strong><small>Engineering</small></div>
-        <div class="tile"><span>💻</span><strong>Technology</strong><small>AI & coding</small></div>
-        <div class="tile"><span>📈</span><strong>Finance</strong><small>Money skills</small></div>
-        <div class="tile"><span>🌍</span><strong>History & Geography</strong><small>World knowledge</small></div>
-        <div class="tile"><span>🏛️</span><strong>Politics</strong><small>Current affairs</small></div>
-        <div class="tile"><span>🩺</span><strong>Health & Medical</strong><small>Wellness learning</small></div>
-        <div class="tile"><span>🛠️</span><strong>Skills</strong><small>Practical growth</small></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Learning Topic</h2>
-      <select id="learnType">
-        <option>Science</option>
-        <option>Physics & Mechanics</option>
-        <option>Technology</option>
-        <option>Finance</option>
-        <option>History & Geography</option>
-        <option>Politics</option>
-        <option>Health & Medical</option>
-        <option>Skills</option>
-      </select>
-      <textarea id="learnQuestion" placeholder="What do you want to learn?"></textarea>
-      <button onclick="saveLearning()">Save Topic</button>
-      <div id="learningList"></div>
-    </div>
-  </section>
-
-  <section id="ai" class="page">
-    <div class="card hero">
-      <h2>Hero AI Console</h2>
-      <p>This version prepares powerful prompts for ChatGPT. Direct AI integration will come later.</p>
-    </div>
-
-    <div class="card">
-      <h2>Ask Hero</h2>
-      <select id="aiMode">
-        <option>Morning Briefing</option>
-        <option>Daily Planning</option>
-        <option>Project Planning</option>
-        <option>Learning Assistant</option>
-        <option>Finance Helper</option>
-        <option>Travel Planner</option>
-        <option>Technical Research</option>
-        <option>Decision Making</option>
-        <option>Health & Medical Learning</option>
-        <option>Skill Building</option>
-      </select>
-      <textarea id="aiQuestion" placeholder="Type your question or situation..."></textarea>
-      <button onclick="generatePrompt()">Generate Hero Prompt</button>
-    </div>
-
-    <div class="card">
-      <h2>Generated Prompt</h2>
-      <div id="promptOutput" class="ai-box">Your Hero prompt will appear here.</div>
-      <div class="row">
-        <button onclick="copyPrompt()">Copy</button>
-        <button class="secondary" onclick="clearPrompt()">Clear</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Backup & Restore</h2>
-      <p class="small">Use this before major updates.</p>
-      <div class="row">
-        <button onclick="exportData()">Export</button>
-        <button class="secondary" onclick="importData()">Import</button>
-      </div>
-      <textarea id="backupBox" placeholder="Backup data appears here. Paste backup here to restore."></textarea>
-    </div>
-  </section>
-
-  <p class="footer">Hero OS v1.1 • Local-first • iPhone-ready</p>
 </div>
 
 <nav class="nav">
-  <button class="active" onclick="showPage('today',this)">Today</button>
+  <button class="active" onclick="showPage('core',this)">HERO</button>
   <button onclick="showPage('planner',this)">Planner</button>
-  <button onclick="showPage('projects',this)">Projects</button>
-  <button onclick="showPage('learn',this)">Learn</button>
-  <button onclick="showPage('ai',this)">Hero AI</button>
+  <button onclick="showPage('memory',this)">Memory</button>
 </nav>
 
 <script>
-const storeKey="heroOSv11";
+const storeKey="heroCoreV20";
 
 let data=JSON.parse(localStorage.getItem(storeKey))||{
-  briefing:"",
-  notes:"",
+  memory:"",
   tasks:[],
-  projects:[],
-  learning:[]
+  history:[]
 };
 
 function save(){
@@ -436,23 +324,166 @@ function showPage(id,btn){
   btn.classList.add("active");
 }
 
-function saveBriefing(){
-  data.briefing=document.getElementById("briefing").value;
-  save();
-  alert("Briefing saved.");
+function clearCommand(){
+  document.getElementById("command").value="";
+  document.getElementById("response").innerText="Ready.";
 }
 
-function saveNotes(){
-  data.notes=document.getElementById("notes").value;
+function processCommand(){
+  const cmd=document.getElementById("command").value.trim();
+  if(!cmd){
+    alert("Please enter or dictate a command.");
+    return;
+  }
+
+  document.getElementById("heroStatus").innerText="HERO analysing...";
+  let reply=analyseCommand(cmd);
+
+  document.getElementById("response").innerText=reply;
+  document.getElementById("heroStatus").innerText="HERO online • Response ready";
+
+  data.history.unshift({
+    date:new Date().toLocaleString(),
+    command:cmd,
+    response:reply
+  });
+
+  data.history=data.history.slice(0,20);
   save();
-  alert("Notes saved.");
 }
 
-function addTask(type){
-  const input=type==="priority"?document.getElementById("priorityInput"):document.getElementById("taskInput");
+function analyseCommand(cmd){
+  const text=cmd.toLowerCase();
+
+  if(text.includes("calculate") || text.includes("bill") || text.includes("kg") || text.includes("per kg")){
+    return calculateBill(cmd);
+  }
+
+  if(text.includes("office") || text.includes("traffic") || text.includes("weather") || text.includes("route")){
+    return `I understand this as a travel safety and timing request.
+
+To answer perfectly, I need live access to:
+1. Your current location
+2. Office location
+3. Weather around your travel time
+4. Traffic and route conditions
+5. Road closure/diversion/protest information
+
+Current HERO Core v2.0 cannot yet access live traffic/weather APIs.
+
+Recommended next upgrade:
+HERO v2.1 = live location + weather check
+HERO v2.2 = maps/traffic integration
+
+For now, my guidance:
+- Check weather before leaving
+- Avoid peak congestion time if possible
+- Keep 15–30 minutes buffer
+- If rain or heavy traffic is expected, leave earlier or delay slightly depending on urgency.`;
+  }
+
+  if(text.includes("health") || text.includes("medical") || text.includes("medicine")){
+    return `I understand this as a health/medical question.
+
+I can help explain general health information, symptoms, lifestyle, and questions to ask a doctor.
+
+Important:
+I cannot replace a qualified doctor, emergency care, or diagnosis.
+
+Please describe:
+1. Age
+2. Symptoms
+3. Duration
+4. Medicines taken
+5. Any existing condition
+
+Then I can help you structure the next safe step.`;
+  }
+
+  if(text.includes("plan") || text.includes("organise") || text.includes("organize")){
+    return `Command understood: planning and organisation.
+
+Suggested structure:
+1. Define the goal
+2. Break it into small actions
+3. Decide priority
+4. Assign date/time
+5. Track completion
+6. Review at end of day
+
+Tell me the goal, deadline, and constraints. I will convert it into an action plan.`;
+  }
+
+  return `Command received.
+
+I understand you need help with:
+"${cmd}"
+
+Current HERO Core can:
+- calculate simple bills
+- structure plans
+- guide decisions
+- prepare safety/travel reasoning
+- store memory and tasks
+
+For deeper intelligence, this should be sent to the AI brain in the next version.
+
+Suggested next action:
+Convert this command into a clear AI request and ask ChatGPT, or wait for HERO AI integration in the next upgrade.`;
+}
+
+function calculateBill(cmd){
+  let text=cmd.toLowerCase();
+
+  text=text.replace(/half kg/g,"0.5 kg");
+  text=text.replace(/half kilo/g,"0.5 kg");
+  text=text.replace(/one kg/g,"1 kg");
+  text=text.replace(/two kg/g,"2 kg");
+  text=text.replace(/three kg/g,"3 kg");
+  text=text.replace(/four kg/g,"4 kg");
+  text=text.replace(/five kg/g,"5 kg");
+
+  const pattern=/(\d+(\.\d+)?)\s*kg\s+([a-zA-Z]+).*?(\d+)\s*(?:per kg|\/kg|kg)/g;
+  let match;
+  let total=0;
+  let lines=[];
+
+  while((match=pattern.exec(text))!==null){
+    const qty=parseFloat(match[1]);
+    const item=match[3];
+    const rate=parseFloat(match[4]);
+    const cost=qty*rate;
+    total+=cost;
+    lines.push(`${capitalize(item)}: ${qty} kg × ₹${rate}/kg = ₹${cost}`);
+  }
+
+  if(lines.length===0){
+    return `I tried to calculate the bill, but I could not clearly detect item, quantity, and rate.
+
+Try this format:
+0.5 kg potato at 40 per kg
+2 kg tomato at 10 per kg
+3 kg onion at 15 per kg`;
+  }
+
+  return `Bill calculation completed:
+
+${lines.join("\n")}
+
+Total amount to pay: ₹${total}
+
+Please verify weights and rates before paying.`;
+}
+
+function capitalize(s){
+  return s.charAt(0).toUpperCase()+s.slice(1);
+}
+
+function addTask(){
+  const input=document.getElementById("taskInput");
   const text=input.value.trim();
   if(!text)return;
-  data.tasks.push({id:Date.now(),text,type,done:false});
+  data.tasks.push({id:Date.now(),text,done:false});
   input.value="";
   save();
 }
@@ -467,186 +498,35 @@ function deleteTask(id){
   save();
 }
 
-function saveProject(){
-  const type=document.getElementById("projectType").value;
-  const title=document.getElementById("projectTitle").value.trim();
-  const note=document.getElementById("projectNote").value.trim();
-  const progress=document.getElementById("projectProgress").value;
-
-  if(!title && !note)return;
-
-  data.projects.unshift({
-    id:Date.now(),
-    type,
-    title:title||type,
-    note,
-    progress,
-    date:new Date().toLocaleDateString()
-  });
-
-  document.getElementById("projectTitle").value="";
-  document.getElementById("projectNote").value="";
+function saveMemory(){
+  data.memory=document.getElementById("memoryBox").value;
   save();
-}
-
-function deleteProject(id){
-  data.projects=data.projects.filter(p=>p.id!==id);
-  save();
-}
-
-function saveLearning(){
-  const type=document.getElementById("learnType").value;
-  const question=document.getElementById("learnQuestion").value.trim();
-  if(!question)return;
-
-  data.learning.unshift({
-    id:Date.now(),
-    type,
-    question,
-    date:new Date().toLocaleDateString()
-  });
-
-  document.getElementById("learnQuestion").value="";
-  save();
-}
-
-function deleteLearning(id){
-  data.learning=data.learning.filter(l=>l.id!==id);
-  save();
-}
-
-function generatePrompt(){
-  const mode=document.getElementById("aiMode").value;
-  const question=document.getElementById("aiQuestion").value.trim();
-
-  if(!question){
-    alert("Please type your request first.");
-    return;
-  }
-
-  const openTasks=data.tasks.filter(t=>!t.done).map(t=>"- "+t.text).join("\\n")||"No active tasks.";
-  const projectSummary=data.projects.slice(0,5).map(p=>"- "+p.type+": "+p.title+" ("+p.progress+"%)").join("\\n")||"No recent projects.";
-
-  const prompt=`You are HERO OS, my personal AI command center.
-
-Mode: ${mode}
-
-My request:
-${question}
-
-Current open tasks:
-${openTasks}
-
-Recent project context:
-${projectSummary}
-
-Please respond with:
-1. Clear summary
-2. Simple explanation
-3. Step-by-step action plan
-4. Risks or things to verify
-5. Best next action I can do from iPhone
-
-Keep it practical, structured, and not overly complicated.`;
-
-  document.getElementById("promptOutput").innerText=prompt;
-}
-
-function copyPrompt(){
-  const text=document.getElementById("promptOutput").innerText;
-  navigator.clipboard.writeText(text);
-  alert("Prompt copied.");
-}
-
-function clearPrompt(){
-  document.getElementById("promptOutput").innerText="Your Hero prompt will appear here.";
-  document.getElementById("aiQuestion").value="";
-}
-
-function exportData(){
-  document.getElementById("backupBox").value=JSON.stringify(data,null,2);
-  alert("Backup generated. Copy and save it safely.");
-}
-
-function importData(){
-  try{
-    const txt=document.getElementById("backupBox").value.trim();
-    if(!txt)return alert("Paste backup data first.");
-    data=JSON.parse(txt);
-    save();
-    alert("Backup restored.");
-  }catch(e){
-    alert("Invalid backup data.");
-  }
-}
-
-function renderTasks(type,id){
-  const box=document.getElementById(id);
-  const list=data.tasks.filter(t=>t.type===type);
-  box.innerHTML=list.length?"":"<p>No items yet.</p>";
-
-  list.forEach(t=>{
-    const div=document.createElement("div");
-    div.className="item"+(t.done?" done":"");
-    div.innerHTML=`
-      <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${t.id})">
-      <span style="flex:1">${t.text}</span>
-      <button class="danger" onclick="deleteTask(${t.id})">×</button>
-    `;
-    box.appendChild(div);
-  });
+  alert("HERO memory saved.");
 }
 
 function render(){
-  document.getElementById("todayDate").innerText=
-    new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+  document.getElementById("memoryBox").value=data.memory||"";
 
-  document.getElementById("briefing").value=data.briefing||"";
-  document.getElementById("notes").value=data.notes||"";
-
-  renderTasks("priority","priorityList");
-  renderTasks("task","taskList");
-
-  const open=data.tasks.filter(t=>!t.done).length;
-  const done=data.tasks.filter(t=>t.done).length;
-
-  document.getElementById("openCount").innerText=open;
-  document.getElementById("doneCount").innerText=done;
-  document.getElementById("projectCount").innerText=data.projects.length;
-
-  const pBox=document.getElementById("projectList");
-  pBox.innerHTML=data.projects.length?"":"<p>No project updates yet.</p>";
-
-  data.projects.forEach(p=>{
+  const taskList=document.getElementById("taskList");
+  taskList.innerHTML=data.tasks.length?"":"<p>No tasks yet.</p>";
+  data.tasks.forEach(t=>{
     const div=document.createElement("div");
-    div.className="item";
+    div.className="log";
     div.innerHTML=`
-      <span style="flex:1">
-        <strong>${p.title}</strong><br>
-        <small>${p.type} • ${p.date} • ${p.progress}%</small><br>
-        ${p.note}
-        <div class="progress"><div class="bar" style="width:${p.progress}%"></div></div>
-      </span>
-      <button class="danger" onclick="deleteProject(${p.id})">×</button>
+      <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${t.id})">
+      ${t.done?"<s>"+t.text+"</s>":t.text}
+      <button class="secondary" onclick="deleteTask(${t.id})" style="float:right;padding:6px 10px">×</button>
     `;
-    pBox.appendChild(div);
+    taskList.appendChild(div);
   });
 
-  const lBox=document.getElementById("learningList");
-  lBox.innerHTML=data.learning.length?"":"<p>No learning topics yet.</p>";
-
-  data.learning.forEach(l=>{
+  const history=document.getElementById("history");
+  history.innerHTML=data.history.length?"":"<p>No command history yet.</p>";
+  data.history.forEach(h=>{
     const div=document.createElement("div");
-    div.className="item";
-    div.innerHTML=`
-      <span style="flex:1">
-        <strong>${l.type}</strong><br>
-        <small>${l.date}</small><br>
-        ${l.question}
-      </span>
-      <button class="danger" onclick="deleteLearning(${l.id})">×</button>
-    `;
-    lBox.appendChild(div);
+    div.className="log";
+    div.innerHTML=`<strong>${h.date}</strong><br>${h.command}<br><br><span style="color:#dbeafe">${h.response}</span>`;
+    history.appendChild(div);
   });
 }
 
