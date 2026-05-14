@@ -1,617 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#020617">
-<title>HERO OS v2.2</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
+<meta name="theme-color" content="#020617" />
+<title>HERO OS v2.3</title>
 
 <style>
 :root{
---bg:#020617;
---panel:#0f172a;
---line:#263247;
---text:#eef2ff;
---muted:#94a3b8;
---blue:#38bdf8;
---green:#22c55e;
---red:#ef4444;
+  --bg:#020617;--panel:#0f172a;--panel2:#111827;--line:#263247;
+  --text:#eef2ff;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;
+  --red:#ef4444;--orange:#f59e0b;--purple:#a78bfa;
 }
-
 *{box-sizing:border-box}
-
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-background:
-radial-gradient(circle at top,#123155 0%,transparent 35%),
-radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),
-#020617;
-color:var(--text);
+  margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:radial-gradient(circle at top,#123155 0%,transparent 35%),
+  radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),#020617;color:var(--text)
 }
-
-.app{
-max-width:520px;
-margin:auto;
-min-height:100vh;
-padding:18px;
-padding-bottom:90px;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:14px;
-}
-
-.logo h1{
-margin:0;
-font-size:30px;
-letter-spacing:2px;
-}
-
-.logo p{
-margin:4px 0 0;
-color:var(--muted);
-font-size:13px;
-}
-
-.badge{
-color:var(--blue);
-border:1px solid rgba(56,189,248,.45);
-background:rgba(56,189,248,.12);
-padding:8px 12px;
-border-radius:999px;
-font-size:12px;
-}
-
-.card{
-background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));
-border:1px solid var(--line);
-border-radius:24px;
-padding:16px;
-margin-bottom:14px;
-box-shadow:0 20px 45px rgba(0,0,0,.28);
-}
-
-.face-card{
-text-align:center;
-padding:24px 16px;
-background:
-radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),
-linear-gradient(145deg,#020617,#0f172a);
-}
-
-.face{
-width:190px;
-height:190px;
-margin:8px auto 18px;
-border-radius:50%;
-border:2px solid rgba(56,189,248,.6);
-position:relative;
-box-shadow:
-0 0 25px rgba(56,189,248,.35),
-inset 0 0 35px rgba(56,189,248,.18);
-animation:pulse 3s infinite;
-}
-
-.face::before{
-content:"";
-position:absolute;
-inset:25px;
-border-radius:50%;
-border:1px dashed rgba(56,189,248,.45);
-animation:spin 12s linear infinite;
-}
-
-.eye{
-width:34px;
-height:16px;
-background:var(--blue);
-border-radius:999px;
-position:absolute;
-top:72px;
-box-shadow:0 0 18px var(--blue);
-}
-
-.left{left:48px}
-.right{right:48px}
-
-.mouth{
-width:70px;
-height:10px;
-background:var(--blue);
-border-radius:999px;
-position:absolute;
-left:50%;
-bottom:55px;
-transform:translateX(-50%);
-box-shadow:0 0 18px var(--blue);
-}
-
-@keyframes pulse{
-50%{
-box-shadow:
-0 0 45px rgba(56,189,248,.55),
-inset 0 0 45px rgba(56,189,248,.25);
-}
-}
-
-@keyframes spin{
-to{transform:rotate(360deg)}
-}
-
-.status{
-color:var(--green);
-font-size:13px;
-}
-
-h2{
-margin:0 0 10px;
-font-size:18px;
-}
-
-p{
-color:var(--muted);
-line-height:1.45;
-}
-
-textarea{
-width:100%;
-background:#020617;
-border:1px solid var(--line);
-color:var(--text);
-border-radius:16px;
-padding:13px;
-font-size:15px;
-margin:6px 0;
-min-height:120px;
-resize:vertical;
-}
-
-button{
-border:0;
-border-radius:16px;
-padding:13px 14px;
-font-weight:800;
-font-size:14px;
-background:var(--blue);
-color:#00111f;
-cursor:pointer;
-}
-
-button.secondary{
-background:#1f2937;
-color:var(--text);
-border:1px solid var(--line);
-}
-
-.row{
-display:flex;
-gap:8px;
-}
-
-.row button{
-flex:1;
-}
-
-.response{
-background:#020617;
-border:1px solid var(--line);
-border-radius:18px;
-padding:14px;
-white-space:pre-wrap;
-min-height:180px;
-color:#dbeafe;
-}
-
-.info{
-font-size:13px;
-color:var(--muted);
-margin-top:10px;
-}
-
-.nav{
-position:fixed;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-max-width:520px;
-width:100%;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-background:rgba(2,6,23,.97);
-border-top:1px solid var(--line);
-padding:8px;
-}
-
-.nav button{
-background:transparent;
-color:var(--muted);
-font-size:12px;
-}
-
-.nav button.active{
-color:var(--blue);
-}
-
-.page{display:none}
-.page.active{display:block}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:18px;padding-bottom:92px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo h1{margin:0;font-size:30px;letter-spacing:2px}.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.badge{color:var(--blue);border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);padding:8px 12px;border-radius:999px;font-size:12px}
+.card{background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 20px 45px rgba(0,0,0,.28)}
+.face-card{text-align:center;padding:24px 16px;background:radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),linear-gradient(145deg,#020617,#0f172a)}
+.face{width:190px;height:190px;margin:8px auto 18px;border-radius:50%;border:2px solid rgba(56,189,248,.6);position:relative;box-shadow:0 0 25px rgba(56,189,248,.35),inset 0 0 35px rgba(56,189,248,.18);animation:pulse 3s infinite}
+.face.listening{animation:pulseFast 1s infinite}.face.thinking{animation:spinGlow 2s infinite}
+.face::before{content:"";position:absolute;inset:25px;border-radius:50%;border:1px dashed rgba(56,189,248,.45);animation:spin 12s linear infinite}
+.eye{width:34px;height:16px;background:var(--blue);border-radius:999px;position:absolute;top:72px;box-shadow:0 0 18px var(--blue)}
+.left{left:48px}.right{right:48px}
+.mouth{width:70px;height:10px;background:var(--blue);border-radius:999px;position:absolute;left:50%;bottom:55px;transform:translateX(-50%);box-shadow:0 0 18px var(--blue)}
+@keyframes pulse{50%{box-shadow:0 0 45px rgba(56,189,248,.55),inset 0 0 45px rgba(56,189,248,.25)}}
+@keyframes pulseFast{50%{box-shadow:0 0 65px rgba(34,197,94,.75),inset 0 0 50px rgba(34,197,94,.25)}}
+@keyframes spinGlow{50%{box-shadow:0 0 65px rgba(167,139,250,.75),inset 0 0 50px rgba(167,139,250,.25)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status{color:var(--green);font-size:13px}
+h2{margin:0 0 10px;font-size:18px}p{color:var(--muted);line-height:1.45}
+textarea,input,select{width:100%;background:#020617;border:1px solid var(--line);color:var(--text);border-radius:16px;padding:13px;font-size:15px;margin:6px 0}
+textarea{min-height:110px;resize:vertical}
+button{border:0;border-radius:16px;padding:13px 14px;font-weight:800;font-size:14px;background:var(--blue);color:#00111f;cursor:pointer}
+button.secondary{background:#1f2937;color:var(--text);border:1px solid var(--line)}
+button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba(239,68,68,.35)}
+.row{display:flex;gap:8px}.row button{flex:1}
+.response{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;white-space:pre-wrap;min-height:180px;color:#dbeafe}
+.info,.small{font-size:13px;color:var(--muted);margin-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quick{background:#07111f;color:var(--text);border:1px solid var(--line);min-height:58px}
+.item{border-top:1px solid var(--line);padding:10px 0;color:#dbeafe;font-size:14px}
+.item small{color:var(--muted)}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(2,6,23,.97);border-top:1px solid var(--line);padding:8px}
+.nav button{background:transparent;color:var(--muted);font-size:12px}.nav button.active{color:var(--blue)}
+.page{display:none}.page.active{display:block}
 </style>
 </head>
 
 <body>
-
 <div class="app">
+  <div class="header">
+    <div class="logo"><h1>HERO</h1><p>Personal AI Command System</p></div>
+    <div class="badge">v2.3</div>
+  </div>
 
-<div class="header">
-<div class="logo">
-<h1>HERO</h1>
-<p>Context-Aware AI Command System</p>
-</div>
-<div class="badge">v2.2</div>
-</div>
+  <section id="hero" class="page active">
+    <div class="card face-card">
+      <div class="face" id="heroFace"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
+      <div class="status" id="heroStatus">HERO online • Awaiting command</div>
+    </div>
 
-<section id="hero" class="page active">
+    <div class="card">
+      <h2>Command HERO</h2>
+      <p class="small">Tap Speak and talk naturally. HERO will process automatically.</p>
+      <textarea id="command" placeholder="Example: Hero, should I leave for office at 10 AM today?"></textarea>
+      <div class="row">
+        <button onclick="startVoice()">🎤 Speak</button>
+        <button onclick="processCommand(false)">Activate HERO</button>
+      </div>
+      <button class="secondary" style="width:100%;margin-top:8px" onclick="clearCommand()">Clear</button>
+      <div class="info" id="locationInfo">Location not detected yet.</div>
+    </div>
 
-<div class="card face-card">
-<div class="face">
-<div class="eye left"></div>
-<div class="eye right"></div>
-<div class="mouth"></div>
-</div>
+    <div class="card">
+      <h2>Quick Actions</h2>
+      <div class="grid">
+        <button class="quick" onclick="quickCommand('Hero, should I leave for office now? Check weather and guide me.')">Office Check</button>
+        <button class="quick" onclick="quickCommand('Hero, check current weather around me and advise.')">Weather Check</button>
+        <button class="quick" onclick="quickCommand('Hero, help me calculate my vegetable bill.')">Calculate Bill</button>
+        <button class="quick" onclick="quickCommand('Hero, plan my focus for today with discipline.')">Daily Focus</button>
+      </div>
+    </div>
 
-<div class="status" id="heroStatus">
-HERO online • Awaiting command
-</div>
-</div>
+    <div class="card">
+      <h2>HERO Response</h2>
+      <div class="response" id="response">Ready.</div>
+      <div class="row" style="margin-top:8px">
+        <button onclick="copyResponse()">Copy</button>
+        <button class="secondary" onclick="speakResponse()">Speak Response</button>
+      </div>
+    </div>
+  </section>
 
-<div class="card">
-<h2>Command HERO</h2>
+  <section id="discipline" class="page">
+    <div class="card">
+      <h2>Discipline Planner</h2>
+      <input id="taskInput" placeholder="Add routine, goal or task..." />
+      <button onclick="addTask()">Add Discipline Item</button>
+      <div id="taskList"></div>
+    </div>
+  </section>
 
-<p>
-Use microphone or type naturally.
-</p>
-
-<textarea id="command" placeholder="Example: Hero, should I leave for office at 10 AM today?"></textarea>
-
-<div class="row">
-<button onclick="startVoice()">🎤 Speak</button>
-<button onclick="processCommand()">Activate HERO</button>
-</div>
-
-<button class="secondary" style="width:100%;margin-top:8px" onclick="clearCommand()">
-Clear
-</button>
-
-<div class="info" id="locationInfo">
-Location not detected yet.
-</div>
-</div>
-
-<div class="card">
-<h2>HERO Response</h2>
-<div class="response" id="response">
-Ready.
-</div>
-</div>
-
-</section>
-
-<section id="memory" class="page">
-
-<div class="card">
-<h2>HERO Memory</h2>
-
-<textarea id="memoryBox" placeholder="Store office location, routines, goals, preferences, important notes..."></textarea>
-
-<button onclick="saveMemory()">Save Memory</button>
-</div>
-
-</section>
-
+  <section id="memory" class="page">
+    <div class="card">
+      <h2>HERO Memory</h2>
+      <textarea id="memoryBox" placeholder="Store office location, routines, goals, preferences, important notes..."></textarea>
+      <button onclick="saveMemory()">Save Memory</button>
+    </div>
+    <div class="card">
+      <h2>Command History</h2>
+      <div id="history"></div>
+    </div>
+  </section>
 </div>
 
 <nav class="nav">
-<button class="active" onclick="showPage('hero',this)">HERO</button>
-<button onclick="showPage('memory',this)">Memory</button>
+  <button class="active" onclick="showPage('hero',this)">HERO</button>
+  <button onclick="showPage('discipline',this)">Discipline</button>
+  <button onclick="showPage('memory',this)">Memory</button>
 </nav>
 
 <script>
+const storeKey="heroV23";
+let data=JSON.parse(localStorage.getItem(storeKey))||{memory:"",tasks:[],history:[]};
+let currentWeather=null,currentLocation=null,lastResponse="";
 
-const storeKey="heroV22";
-
-let data=JSON.parse(localStorage.getItem(storeKey))||{
-memory:""
-};
-
-let currentWeather=null;
-let currentLocation=null;
-
-function save(){
-localStorage.setItem(storeKey,JSON.stringify(data));
+function save(){localStorage.setItem(storeKey,JSON.stringify(data));render();}
+function setState(text,state="idle"){
+  document.getElementById("heroStatus").innerText=text;
+  const f=document.getElementById("heroFace");
+  f.classList.remove("listening","thinking");
+  if(state==="listening")f.classList.add("listening");
+  if(state==="thinking")f.classList.add("thinking");
 }
-
 function render(){
-document.getElementById("memoryBox").value=data.memory||"";
+  document.getElementById("memoryBox").value=data.memory||"";
+  const t=document.getElementById("taskList");
+  t.innerHTML=data.tasks.length?"":"<p>No discipline items yet.</p>";
+  data.tasks.forEach(x=>{
+    const d=document.createElement("div");d.className="item";
+    d.innerHTML=`<input type="checkbox" ${x.done?"checked":""} onchange="toggleTask(${x.id})"> ${x.done?'<s>'+x.text+'</s>':x.text}
+    <button class="danger" style="float:right;padding:6px 10px" onclick="deleteTask(${x.id})">×</button>`;
+    t.appendChild(d);
+  });
+  const h=document.getElementById("history");
+  h.innerHTML=data.history.length?"":"<p>No history yet.</p>";
+  data.history.forEach(x=>{
+    const d=document.createElement("div");d.className="item";
+    d.innerHTML=`<small>${x.date}</small><br><b>${x.command}</b><br><br>${x.response}`;
+    h.appendChild(d);
+  });
 }
-
 function showPage(id,btn){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-
-document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
-
-function saveMemory(){
-data.memory=document.getElementById("memoryBox").value;
-save();
-alert("HERO memory saved.");
+function clearCommand(){document.getElementById("command").value="";document.getElementById("response").innerText="Ready.";lastResponse="";}
+function saveMemory(){data.memory=document.getElementById("memoryBox").value;save();alert("HERO memory saved.");}
+function quickCommand(text){document.getElementById("command").value=text;processCommand(false);}
+function addTask(){
+  const i=document.getElementById("taskInput"),text=i.value.trim();if(!text)return;
+  data.tasks.unshift({id:Date.now(),text,done:false});i.value="";save();
 }
-
-function clearCommand(){
-document.getElementById("command").value="";
-document.getElementById("response").innerText="Ready.";
-}
+function toggleTask(id){data.tasks=data.tasks.map(t=>t.id===id?{...t,done:!t.done}:t);save();}
+function deleteTask(id){data.tasks=data.tasks.filter(t=>t.id!==id);save();}
 
 function startVoice(){
-
-const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition;
-
-if(!SpeechRecognition){
-alert("Speech recognition not supported. Use iPhone keyboard dictation.");
-return;
-}
-
-const recognition=new SpeechRecognition();
-
-recognition.lang="en-IN";
-recognition.interimResults=false;
-recognition.maxAlternatives=1;
-
-document.getElementById("heroStatus").innerText="HERO listening...";
-
-recognition.start();
-
-recognition.onresult=function(event){
-
-const transcript=event.results[0][0].transcript;
-
-document.getElementById("command").value=transcript;
-
-document.getElementById("heroStatus").innerText="Command captured";
-};
-
-recognition.onerror=function(){
-document.getElementById("heroStatus").innerText="Voice capture failed";
-};
-
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SpeechRecognition){alert("Speech recognition not supported. Use iPhone keyboard dictation mic.");return;}
+  const r=new SpeechRecognition();
+  r.lang="en-IN";r.interimResults=false;r.maxAlternatives=1;
+  setState("HERO listening...","listening");
+  r.start();
+  r.onresult=async e=>{
+    const transcript=e.results[0][0].transcript;
+    document.getElementById("command").value=transcript;
+    await processCommand(true);
+  };
+  r.onerror=()=>setState("Voice capture failed","idle");
+  r.onend=()=>{if(document.getElementById("heroStatus").innerText==="HERO listening...")setState("HERO online • Awaiting command","idle");};
 }
 
 async function getLocation(){
-
-return new Promise((resolve,reject)=>{
-
-if(!navigator.geolocation){
-reject("Geolocation not supported");
-return;
+  return new Promise((resolve,reject)=>{
+    if(!navigator.geolocation){reject("Geolocation not supported");return;}
+    navigator.geolocation.getCurrentPosition(pos=>{
+      currentLocation={lat:pos.coords.latitude,lon:pos.coords.longitude};
+      document.getElementById("locationInfo").innerText=`Location detected • Lat ${currentLocation.lat.toFixed(2)}, Lon ${currentLocation.lon.toFixed(2)}`;
+      resolve(currentLocation);
+    },err=>reject(err.message),{enableHighAccuracy:false,timeout:10000,maximumAge:300000});
+  });
 }
-
-navigator.geolocation.getCurrentPosition(
-
-position=>{
-
-currentLocation={
-lat:position.coords.latitude,
-lon:position.coords.longitude
-};
-
-document.getElementById("locationInfo").innerText=
-`Location detected • Lat ${currentLocation.lat.toFixed(2)}, Lon ${currentLocation.lon.toFixed(2)}`;
-
-resolve(currentLocation);
-
-},
-
-error=>{
-reject(error.message);
-}
-
-);
-
-});
-
-}
-
 async function getWeather(lat,lon){
-
-const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-
-const response=await fetch(url);
-
-const json=await response.json();
-
-currentWeather=json.current_weather;
-
-return currentWeather;
-
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=1&timezone=auto`;
+  const res=await fetch(url);const json=await res.json();currentWeather=json;return json;
 }
-
-async function processCommand(){
-
-const cmd=document.getElementById("command").value.trim();
-
-if(!cmd){
-alert("Please enter or speak a command.");
-return;
+async function processCommand(fromVoice=false){
+  const cmd=document.getElementById("command").value.trim();if(!cmd){alert("Please enter or speak a command.");return;}
+  setState("HERO analysing context...","thinking");document.getElementById("response").innerText="Thinking...";
+  let reply="";
+  try{
+    if(needsContext(cmd)){await getLocation();await getWeather(currentLocation.lat,currentLocation.lon);}
+    reply=generateResponse(cmd);
+  }catch(err){
+    reply=`HERO could not access live context.\n\nPossible reasons:\n- Location permission denied\n- Internet unavailable\n- Weather service issue\n\nError:\n${err}\n\nI can still help with calculation, planning and general guidance.`;
+  }
+  lastResponse=reply;document.getElementById("response").innerText=reply;
+  setState(fromVoice?"HERO response ready":"HERO online • Response ready","idle");
+  data.history.unshift({date:new Date().toLocaleString(),command:cmd,response:reply});
+  data.history=data.history.slice(0,20);save();
 }
-
-document.getElementById("heroStatus").innerText="HERO analysing...";
-document.getElementById("response").innerText="Thinking...";
-
-try{
-
-await getLocation();
-
-await getWeather(currentLocation.lat,currentLocation.lon);
-
-const reply=generateResponse(cmd);
-
-document.getElementById("response").innerText=reply;
-
-document.getElementById("heroStatus").innerText="HERO online • Response ready";
-
+function needsContext(cmd){
+  const t=cmd.toLowerCase();
+  return t.includes("weather")||t.includes("office")||t.includes("leave")||t.includes("travel")||t.includes("route")||t.includes("rain");
 }
-catch(err){
-
-document.getElementById("response").innerText=
-`HERO could not access contextual information.
-
-Possible reasons:
-- Location permission denied
-- Internet unavailable
-- Weather service issue
-
-Error:
-${err}`;
-
-document.getElementById("heroStatus").innerText="Context access failed";
-}
-
-}
-
 function generateResponse(cmd){
-
-const text=cmd.toLowerCase();
-
-if(
-text.includes("office") ||
-text.includes("leave") ||
-text.includes("travel")
-){
-
-if(!currentWeather){
-return "Weather information unavailable.";
+  const t=cmd.toLowerCase();
+  if(t.includes("bill")||t.includes("kg")||t.includes("per kg")||t.includes("kilo"))return calculateBill(cmd);
+  if(t.includes("weather")||t.includes("office")||t.includes("leave")||t.includes("travel")||t.includes("rain"))return weatherGuidance(cmd);
+  if(t.includes("focus")||t.includes("discipline")||t.includes("plan my day"))return dailyFocus();
+  return `Command received:\n"${cmd}"\n\nHERO local intelligence can currently help with:\n1. Weather/location guidance\n2. Vegetable or shopping bill calculation\n3. Discipline planning\n4. Memory-based context\n5. Command history\n\nFor deep AI reasoning, the next major upgrade will connect HERO to a secure cloud AI backend.`;
 }
-
-const temp=currentWeather.temperature;
-const wind=currentWeather.windspeed;
-const weatherCode=currentWeather.weathercode;
-
-let weatherSummary="Conditions appear stable.";
-
-if(weatherCode>50){
-weatherSummary="Rain or unstable weather may occur.";
+function weatherGuidance(cmd){
+  if(!currentWeather||!currentWeather.current_weather)return "Weather data unavailable.";
+  const cw=currentWeather.current_weather;
+  const temp=cw.temperature,wind=cw.windspeed,code=cw.weathercode;
+  let risk="Low",advice="Conditions appear generally acceptable.";
+  if(code>=51){risk="Medium/High";advice="Rain or unstable weather is possible. Carry umbrella/rain protection and allow extra travel time.";}
+  else if(temp>=35){risk="Medium";advice="High temperature detected. Carry water and avoid unnecessary delays.";}
+  else if(wind>=30){risk="Medium";advice="Wind speed is high. Ride/drive carefully and avoid loose items.";}
+  const trafficNote="Traffic/protest/road-diversion intelligence is not yet connected. Please verify route in Maps before leaving.";
+  return `Context check completed.\n\nCurrent weather near you:\nTemperature: ${temp}°C\nWind: ${wind} km/h\nWeather risk: ${risk}\n\nRecommendation:\n${advice}\n\nTravel safety note:\n${trafficNote}\n\nBest next action:\nCheck Google/Apple Maps route now. If route is clear and weather is stable, leaving is acceptable.`;
 }
-
-let recommendation="";
-
-if(weatherCode>50){
-recommendation="Consider leaving 15–20 minutes earlier and carry umbrella/rain protection.";
+function dailyFocus(){
+  const open=data.tasks.filter(x=>!x.done).slice(0,5).map(x=>"- "+x.text).join("\n")||"No discipline tasks saved.";
+  return `Daily discipline focus:\n\n1. Choose only 3 important actions today.\n2. Complete the hardest one first.\n3. Avoid unnecessary scrolling or distractions.\n4. Review progress tonight.\n\nYour current discipline items:\n${open}\n\nBest next action:\nPick one task and complete it in the next 30 minutes.`;
 }
-else if(temp>35){
-recommendation="High temperature detected. Carry water and avoid unnecessary delay.";
-}
-else{
-recommendation="Travel conditions appear generally acceptable.";
-}
-
-return `Context analysis completed.
-
-Current temperature:
-${temp}°C
-
-Wind speed:
-${wind} km/h
-
-Weather assessment:
-${weatherSummary}
-
-Recommendation:
-${recommendation}
-
-For complete route intelligence, traffic integration will be added in HERO v2.3.`;
-}
-
-if(
-text.includes("bill") ||
-text.includes("kg") ||
-text.includes("per kg")
-){
-return calculateBill(cmd);
-}
-
-return `Command received:
-
-"${cmd}"
-
-Current HERO capabilities:
-- Voice interaction
-- Context-aware weather guidance
-- Location awareness
-- Bill calculation
-- Memory system
-
-Future upgrades:
-- Traffic intelligence
-- AI reasoning engine
-- Route hazard detection
-- Discipline coaching
-- Smart proactive alerts`;
-}
-
 function calculateBill(cmd){
-
-let text=cmd.toLowerCase();
-
-text=text.replace(/half kg/g,"0.5 kg");
-
-const pattern=/(\d+(\.\d+)?)\s*kg\s+([a-zA-Z]+).*?(\d+)\s*(?:per kg|\/kg|kg)/g;
-
-let match;
-let total=0;
-let lines=[];
-
-while((match=pattern.exec(text))!==null){
-
-const qty=parseFloat(match[1]);
-const item=match[3];
-const rate=parseFloat(match[4]);
-
-const cost=qty*rate;
-
-total+=cost;
-
-lines.push(
-`${capitalize(item)}: ${qty} kg × ₹${rate}/kg = ₹${cost}`
-);
+  let text=cmd.toLowerCase();
+  const words={half:"0.5",one:"1",two:"2",three:"3",four:"4",five:"5",six:"6",seven:"7",eight:"8",nine:"9",ten:"10"};
+  Object.keys(words).forEach(w=>{text=text.replaceAll(w+" kg",words[w]+" kg");text=text.replaceAll(w+" kilo",words[w]+" kg");});
+  text=text.replaceAll("kilo","kg");
+  const pattern=/(\d+(\.\d+)?)\s*kg\s+(?:of\s+)?([a-zA-Z]+).*?(?:at|priced|price|rate|is)?\s*₹?\s*(\d+)\s*(?:per kg|\/kg|kg)?/g;
+  let match,total=0,lines=[];
+  while((match=pattern.exec(text))!==null){
+    const qty=parseFloat(match[1]),item=match[3],rate=parseFloat(match[4]),cost=qty*rate;
+    total+=cost;lines.push(`${cap(item)}: ${qty} kg × ₹${rate}/kg = ₹${cost}`);
+  }
+  if(!lines.length)return "I could not detect quantity, item and rate clearly.\n\nTry:\n0.5 kg potato at 40 per kg, 2 kg tomato at 10 per kg.";
+  return `Bill calculation completed:\n\n${lines.join("\n")}\n\nTotal amount to pay: ₹${total}`;
 }
-
-if(lines.length===0){
-
-return `I could not properly detect quantity and rates.
-
-Try:
-0.5 kg potato at 40 per kg
-2 kg tomato at 10 per kg`;
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function copyResponse(){navigator.clipboard.writeText(lastResponse||document.getElementById("response").innerText);alert("Response copied.");}
+function speakResponse(){
+  const text=lastResponse||document.getElementById("response").innerText;
+  if(!("speechSynthesis" in window)){alert("Speech output not supported.");return;}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.lang="en-IN";u.rate=0.95;speechSynthesis.speak(u);
 }
-
-return `Bill calculation completed:
-
-${lines.join("\n")}
-
-Total amount to pay: ₹${total}`;
-}
-
-function capitalize(s){
-return s.charAt(0).toUpperCase()+s.slice(1);
-}
-
 render();
-
 </script>
-
 </body>
 </html>
