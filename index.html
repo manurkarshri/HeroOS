@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
 <meta name="theme-color" content="#020617" />
-<title>HERO OS v2.4</title>
+<title>HERO OS v2.5</title>
 
 <style>
 :root{
@@ -20,36 +20,44 @@ body{
 }
 .app{max-width:520px;margin:auto;min-height:100vh;padding:18px;padding-bottom:92px}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.logo h1{margin:0;font-size:30px;letter-spacing:2px}.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.logo h1{margin:0;font-size:30px;letter-spacing:2px}
+.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
 .badge{color:var(--blue);border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);padding:8px 12px;border-radius:999px;font-size:12px}
 .card{background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 20px 45px rgba(0,0,0,.28)}
 .face-card{text-align:center;padding:24px 16px;background:radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),linear-gradient(145deg,#020617,#0f172a)}
 .face{width:190px;height:190px;margin:8px auto 18px;border-radius:50%;border:2px solid rgba(56,189,248,.6);position:relative;box-shadow:0 0 25px rgba(56,189,248,.35),inset 0 0 35px rgba(56,189,248,.18);animation:pulse 3s infinite}
-.face.listening{animation:pulseFast 1s infinite}.face.thinking{animation:spinGlow 2s infinite}
+.face.listening{animation:pulseFast 1s infinite}
+.face.thinking{animation:spinGlow 2s infinite}
+.face.speaking{animation:speakGlow .8s infinite}
 .face::before{content:"";position:absolute;inset:25px;border-radius:50%;border:1px dashed rgba(56,189,248,.45);animation:spin 12s linear infinite}
 .eye{width:34px;height:16px;background:var(--blue);border-radius:999px;position:absolute;top:72px;box-shadow:0 0 18px var(--blue)}
 .left{left:48px}.right{right:48px}
 .mouth{width:70px;height:10px;background:var(--blue);border-radius:999px;position:absolute;left:50%;bottom:55px;transform:translateX(-50%);box-shadow:0 0 18px var(--blue)}
+.face.speaking .mouth{animation:mouthMove .35s infinite}
+@keyframes mouthMove{50%{height:24px;width:58px;border-radius:18px}}
 @keyframes pulse{50%{box-shadow:0 0 45px rgba(56,189,248,.55),inset 0 0 45px rgba(56,189,248,.25)}}
 @keyframes pulseFast{50%{box-shadow:0 0 65px rgba(34,197,94,.75),inset 0 0 50px rgba(34,197,94,.25)}}
 @keyframes spinGlow{50%{box-shadow:0 0 65px rgba(167,139,250,.75),inset 0 0 50px rgba(167,139,250,.25)}}
+@keyframes speakGlow{50%{box-shadow:0 0 65px rgba(56,189,248,.9),inset 0 0 50px rgba(56,189,248,.35)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .status{color:var(--green);font-size:13px}
-h2{margin:0 0 10px;font-size:18px}p{color:var(--muted);line-height:1.45}
+h2{margin:0 0 10px;font-size:18px}
+p{color:var(--muted);line-height:1.45}
 textarea,input{width:100%;background:#020617;border:1px solid var(--line);color:var(--text);border-radius:16px;padding:13px;font-size:15px;margin:6px 0}
-textarea{min-height:110px;resize:vertical}
+textarea{min-height:95px;resize:vertical}
 button{border:0;border-radius:16px;padding:13px 14px;font-weight:800;font-size:14px;background:var(--blue);color:#00111f;cursor:pointer}
 button.secondary{background:#1f2937;color:var(--text);border:1px solid var(--line)}
 button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba(239,68,68,.35)}
 .row{display:flex;gap:8px}.row button{flex:1}
-.response{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;white-space:pre-wrap;min-height:180px;color:#dbeafe}
+.response{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;white-space:pre-wrap;min-height:160px;color:#dbeafe;font-size:15px;line-height:1.45}
 .info,.small{font-size:13px;color:var(--muted);margin-top:10px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .quick{background:#07111f;color:var(--text);border:1px solid var(--line);min-height:58px}
 .item{border-top:1px solid var(--line);padding:10px 0;color:#dbeafe;font-size:14px}
 .item small{color:var(--muted)}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(2,6,23,.97);border-top:1px solid var(--line);padding:8px}
-.nav button{background:transparent;color:var(--muted);font-size:12px}.nav button.active{color:var(--blue)}
+.nav button{background:transparent;color:var(--muted);font-size:12px}
+.nav button.active{color:var(--blue)}
 .page{display:none}.page.active{display:block}
 </style>
 </head>
@@ -57,35 +65,40 @@ button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba
 <body>
 <div class="app">
   <div class="header">
-    <div class="logo"><h1>HERO</h1><p>AI Brain Command System</p></div>
-    <div class="badge">v2.4 AI</div>
+    <div class="logo"><h1>HERO</h1><p>Companion AI Command System</p></div>
+    <div class="badge">v2.5</div>
   </div>
 
   <section id="hero" class="page active">
     <div class="card face-card">
-      <div class="face" id="heroFace"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
-      <div class="status" id="heroStatus">HERO online • Awaiting command</div>
+      <div class="face" id="heroFace">
+        <div class="eye left"></div><div class="eye right"></div><div class="mouth"></div>
+      </div>
+      <div class="status" id="heroStatus">HERO online • Ready when you are</div>
     </div>
 
     <div class="card">
-      <h2>Command HERO</h2>
-      <p class="small">Tap Speak and talk naturally. HERO will process automatically using the AI Brain.</p>
-      <textarea id="command" placeholder="Example: Hero, explain black holes in simple engineering language."></textarea>
+      <h2>Talk to HERO</h2>
+      <p class="small">Tap Speak, talk naturally, and HERO will reply automatically.</p>
+      <textarea id="command" placeholder="Example: Hero, should I leave for office now?"></textarea>
       <div class="row">
         <button onclick="startVoice()">🎤 Speak</button>
-        <button onclick="processCommand(false)">Activate HERO</button>
+        <button class="danger" onclick="stopSpeaking()">⏹ Stop</button>
       </div>
-      <button class="secondary" style="width:100%;margin-top:8px" onclick="clearCommand()">Clear</button>
+      <div class="row" style="margin-top:8px">
+        <button class="secondary" onclick="processCommand(false)">Type Backup</button>
+        <button class="secondary" onclick="clearCommand()">Clear</button>
+      </div>
       <div class="info" id="locationInfo">Location not detected yet.</div>
     </div>
 
     <div class="card">
       <h2>Quick Actions</h2>
       <div class="grid">
-        <button class="quick" onclick="quickCommand('Hero, should I leave for office now? Check weather and guide me.')">Office Check</button>
-        <button class="quick" onclick="quickCommand('Hero, check current weather around me and advise.')">Weather Check</button>
-        <button class="quick" onclick="quickCommand('Hero, help me calculate my vegetable bill.')">Calculate Bill</button>
-        <button class="quick" onclick="quickCommand('Hero, plan my focus for today with discipline.')">Daily Focus</button>
+        <button class="quick" onclick="quickCommand('Hero, do an office check for me now.')">Office Check</button>
+        <button class="quick" onclick="quickCommand('Hero, check weather around me and give quick advice.')">Weather Check</button>
+        <button class="quick" onclick="quickCommand('Hero, help me calculate my shopping bill.')">Calculate Bill</button>
+        <button class="quick" onclick="quickCommand('Hero, give me a short disciplined focus plan for today.')">Daily Focus</button>
       </div>
     </div>
 
@@ -94,7 +107,7 @@ button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba
       <div class="response" id="response">Ready.</div>
       <div class="row" style="margin-top:8px">
         <button onclick="copyResponse()">Copy</button>
-        <button class="secondary" onclick="speakResponse()">Speak Response</button>
+        <button class="secondary" onclick="speakResponse()">🔊 Read Again</button>
       </div>
     </div>
   </section>
@@ -111,7 +124,10 @@ button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba
   <section id="memory" class="page">
     <div class="card">
       <h2>HERO Memory</h2>
-      <textarea id="memoryBox" placeholder="Store office location, routines, goals, preferences, important notes..."></textarea>
+      <input id="homeArea" placeholder="Home area / city" />
+      <input id="officeArea" placeholder="Office address / area" />
+      <input id="routine" placeholder="Daily routine / working hours" />
+      <textarea id="memoryBox" placeholder="Preferences, goals, important notes..."></textarea>
       <button onclick="saveMemory()">Save Memory</button>
     </div>
     <div class="card">
@@ -128,24 +144,38 @@ button.danger{background:rgba(239,68,68,.16);color:#fecaca;border:1px solid rgba
 </nav>
 
 <script>
-const storeKey="heroV24";
+const storeKey="heroV25";
 const API_URL="/api/hero";
 
-let data=JSON.parse(localStorage.getItem(storeKey))||{memory:"",tasks:[],history:[]};
-let currentWeather=null,currentLocation=null,lastResponse="";
+let old=JSON.parse(localStorage.getItem("heroV24"))||{};
+let data=JSON.parse(localStorage.getItem(storeKey))||{
+  memory:old.memory||"",
+  homeArea:"",
+  officeArea:"",
+  routine:"",
+  tasks:old.tasks||[],
+  history:old.history||[]
+};
+
+let currentWeather=null,currentLocation=null,lastResponse="",isSpeaking=false;
 
 function save(){localStorage.setItem(storeKey,JSON.stringify(data));render();}
 
 function setState(text,state="idle"){
   document.getElementById("heroStatus").innerText=text;
   const f=document.getElementById("heroFace");
-  f.classList.remove("listening","thinking");
+  f.classList.remove("listening","thinking","speaking");
   if(state==="listening")f.classList.add("listening");
   if(state==="thinking")f.classList.add("thinking");
+  if(state==="speaking")f.classList.add("speaking");
 }
 
 function render(){
   document.getElementById("memoryBox").value=data.memory||"";
+  document.getElementById("homeArea").value=data.homeArea||"";
+  document.getElementById("officeArea").value=data.officeArea||"";
+  document.getElementById("routine").value=data.routine||"";
+
   const t=document.getElementById("taskList");
   t.innerHTML=data.tasks.length?"":"<p>No discipline items yet.</p>";
   data.tasks.forEach(x=>{
@@ -172,15 +202,29 @@ function showPage(id,btn){
 }
 
 function clearCommand(){
+  stopSpeaking();
   document.getElementById("command").value="";
   document.getElementById("response").innerText="Ready.";
   lastResponse="";
+  setState("HERO online • Ready when you are","idle");
 }
 
 function saveMemory(){
   data.memory=document.getElementById("memoryBox").value;
+  data.homeArea=document.getElementById("homeArea").value;
+  data.officeArea=document.getElementById("officeArea").value;
+  data.routine=document.getElementById("routine").value;
   save();
   alert("HERO memory saved.");
+}
+
+function buildMemoryText(){
+  return `
+Home area: ${data.homeArea || "Not saved"}
+Office area/address: ${data.officeArea || "Not saved"}
+Routine: ${data.routine || "Not saved"}
+Other memory: ${data.memory || "Not saved"}
+`;
 }
 
 function quickCommand(text){
@@ -207,6 +251,8 @@ function deleteTask(id){
 }
 
 function startVoice(){
+  stopSpeaking();
+
   const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SpeechRecognition){
     alert("Speech recognition not supported. Use iPhone keyboard dictation mic.");
@@ -227,22 +273,18 @@ function startVoice(){
     await processCommand(true);
   };
 
-  r.onerror=()=>setState("Voice capture failed","idle");
+  r.onerror=()=>setState("Voice capture failed • Try again","idle");
 
   r.onend=()=>{
     if(document.getElementById("heroStatus").innerText==="HERO listening..."){
-      setState("HERO online • Awaiting command","idle");
+      setState("HERO online • Ready when you are","idle");
     }
   };
 }
 
 async function getLocation(){
   return new Promise((resolve,reject)=>{
-    if(!navigator.geolocation){
-      reject("Geolocation not supported");
-      return;
-    }
-
+    if(!navigator.geolocation){reject("Geolocation not supported");return;}
     navigator.geolocation.getCurrentPosition(pos=>{
       currentLocation={lat:pos.coords.latitude,lon:pos.coords.longitude};
       document.getElementById("locationInfo").innerText=
@@ -255,9 +297,8 @@ async function getLocation(){
 async function getWeather(lat,lon){
   const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=1&timezone=auto`;
   const res=await fetch(url);
-  const json=await res.json();
-  currentWeather=json;
-  return json;
+  currentWeather=await res.json();
+  return currentWeather;
 }
 
 function needsContext(cmd){
@@ -265,21 +306,27 @@ function needsContext(cmd){
   return t.includes("weather")||t.includes("office")||t.includes("leave")||t.includes("travel")||t.includes("route")||t.includes("rain");
 }
 
+function isOfficeCheck(cmd){
+  const t=cmd.toLowerCase();
+  return t.includes("office") || t.includes("work") || t.includes("commute");
+}
+
 async function processCommand(fromVoice=false){
   const cmd=document.getElementById("command").value.trim();
+  if(!cmd){alert("Please enter or speak a command.");return;}
 
-  if(!cmd){
-    alert("Please enter or speak a command.");
-    return;
-  }
-
-  setState("HERO analysing with AI Brain...","thinking");
+  setState("HERO thinking...","thinking");
   document.getElementById("response").innerText="Thinking...";
 
-  let reply="";
-  let contextData="";
+  let reply="",contextData="";
 
   try{
+    if(isOfficeCheck(cmd) && !data.officeArea.trim()){
+      reply="Quick note: I don’t know your office location yet. Save it in Memory first, then I can check weather + travel context properly.";
+      finishResponse(cmd,reply,fromVoice);
+      return;
+    }
+
     try{
       if(needsContext(cmd)){
         await getLocation();
@@ -302,12 +349,24 @@ Weather code ${currentWeather.current_weather.weathercode}
       contextData="Live context unavailable: "+contextError;
     }
 
+    const companionCommand=`
+User command: ${cmd}
+
+Answer style:
+- Keep it short and summary-like.
+- Sound like a friendly smart companion, not a formal report.
+- Give direct recommendation first.
+- Use 3 to 5 short bullet points maximum.
+- If information is missing, say clearly what is missing.
+- Do not over-explain.
+`;
+
     const response=await fetch(API_URL,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        command:cmd,
-        memory:data.memory||"",
+        command:companionCommand,
+        memory:buildMemoryText(),
         context:contextData
       })
     });
@@ -315,28 +374,28 @@ Weather code ${currentWeather.current_weather.weathercode}
     const result=await response.json();
 
     if(!response.ok){
-      reply=`HERO AI error:\n\n${result.error || "Unknown AI error"}\n\nPlease check backend deployment, API key, or billing.`;
+      reply=`HERO AI issue: ${result.error || "Unknown error"}`;
     }else{
-      reply=result.reply || "No response received from HERO AI.";
+      reply=result.reply || "I got a response, but it was empty.";
     }
 
   }catch(err){
-    reply=`HERO could not connect to AI backend.\n\nPossible reasons:\n- Internet unavailable\n- Vercel backend issue\n- API configuration issue\n\nError:\n${err.message}`;
+    reply=`I couldn’t reach my AI brain right now. Check internet or backend.\n\nError: ${err.message}`;
   }
 
+  finishResponse(cmd,reply,fromVoice);
+}
+
+function finishResponse(cmd,reply,fromVoice){
   lastResponse=reply;
   document.getElementById("response").innerText=reply;
+  setState("HERO speaking...","speaking");
 
-  setState(fromVoice?"HERO response ready":"HERO online • Response ready","idle");
-
-  data.history.unshift({
-    date:new Date().toLocaleString(),
-    command:cmd,
-    response:reply
-  });
-
+  data.history.unshift({date:new Date().toLocaleString(),command:cmd,response:reply});
   data.history=data.history.slice(0,20);
   save();
+
+  speakResponse(true);
 }
 
 function copyResponse(){
@@ -344,18 +403,42 @@ function copyResponse(){
   alert("Response copied.");
 }
 
-function speakResponse(){
+function speakResponse(auto=false){
   const text=lastResponse||document.getElementById("response").innerText;
   if(!("speechSynthesis" in window)){
-    alert("Speech output not supported.");
+    if(!auto) alert("Speech output not supported.");
+    setState("HERO response ready","idle");
     return;
   }
 
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
   u.lang="en-IN";
-  u.rate=0.95;
+  u.rate=1.02;
+  u.pitch=1.0;
+
+  isSpeaking=true;
+  setState("HERO speaking...","speaking");
+
+  u.onend=()=>{
+    isSpeaking=false;
+    setState("HERO response ready • Tap Speak to continue","idle");
+  };
+
+  u.onerror=()=>{
+    isSpeaking=false;
+    setState("Speech interrupted","idle");
+  };
+
   speechSynthesis.speak(u);
+}
+
+function stopSpeaking(){
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+  }
+  isSpeaking=false;
+  setState("HERO stopped • Ready when you are","idle");
 }
 
 render();
