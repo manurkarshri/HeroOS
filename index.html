@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#070b14" />
+<title>Hero OS</title>
+
+<style>
+:root{
+  --bg:#070b14;
+  --card:#111827;
+  --card2:#151c2c;
+  --line:#263246;
+  --text:#eef2ff;
+  --muted:#9ca3af;
+  --blue:#38bdf8;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+  --purple:#a78bfa;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:radial-gradient(circle at top,#12213a 0%,#070b14 45%,#030712 100%);
+  color:var(--text);
+}
+
+.app{
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  padding:18px;
+  padding-bottom:90px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.logo h1{
+  margin:0;
+  font-size:30px;
+  letter-spacing:1px;
+}
+
+.logo p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.badge{
+  border:1px solid var(--line);
+  background:rgba(56,189,248,.12);
+  color:var(--blue);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+}
+
+.card{
+  background:linear-gradient(145deg,var(--card),var(--card2));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+.hero-card{
+  background:linear-gradient(145deg,#0f172a,#111827,#172554);
+}
+
+h2{
+  margin:0 0 10px;
+  font-size:18px;
+}
+
+h3{
+  margin:0 0 8px;
+  font-size:15px;
+}
+
+p{
+  color:var(--muted);
+  line-height:1.45;
+}
+
+input,textarea,select{
+  width:100%;
+  background:#050914;
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:14px;
+  padding:12px;
+  font-size:15px;
+  margin:6px 0;
+}
+
+textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:12px 14px;
+  font-weight:700;
+  background:var(--blue);
+  color:#00111f;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.btn-row{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+
+.btn-row button{
+  flex:1;
+}
+
+.secondary{
+  background:#1f2937;
+  color:var(--text);
+  border:1px solid var(--line);
+}
+
+.danger{
+  background:rgba(239,68,68,.15);
+  color:#fecaca;
+  border:1px solid rgba(239,68,68,.35);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.tile{
+  background:#07111f;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:13px;
+  min-height:82px;
+}
+
+.tile span{
+  font-size:24px;
+}
+
+.tile strong{
+  display:block;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.tile small{
+  color:var(--muted);
+}
+
+.task{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  border-bottom:1px solid var(--line);
+  padding:10px 0;
+}
+
+.task:last-child{border-bottom:0}
+
+.task input{
+  width:auto;
+  margin-top:2px;
+}
+
+.task.done span{
+  text-decoration:line-through;
+  color:var(--muted);
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  max-width:480px;
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:#050914;
+  border-top:1px solid var(--line);
+  padding:8px;
+  z-index:10;
+}
+
+.nav button{
+  background:transparent;
+  color:var(--muted);
+  font-size:11px;
+  padding:8px 4px;
+}
+
+.nav button.active{
+  color:var(--blue);
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.quote{
+  font-size:16px;
+  color:#dbeafe;
+}
+
+.status{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+}
+
+.ai-box{
+  background:#050914;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  color:#dbeafe;
+  white-space:pre-wrap;
+}
+
+.footer-note{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="logo">
+      <h1>HERO OS</h1>
+      <p>Personal AI Command Center</p>
+    </div>
+    <div class="badge">v1 Local</div>
+  </div>
+
+  <!-- TODAY -->
+  <section id="today" class="page active">
+    <div class="card hero-card">
+      <h2>Good Day, Commander</h2>
+      <p id="todayDate"></p>
+      <p class="quote">“Organise your mind. Execute your mission.”</p>
+      <div class="status">
+        <span id="taskCount">0 tasks</span>
+        <span>Offline Ready</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Morning Briefing</h2>
+      <textarea id="briefing" placeholder="Write today’s focus, meetings, reminders, weather, finance notes, or anything important..."></textarea>
+      <button onclick="saveBriefing()">Save Briefing</button>
+    </div>
+
+    <div class="card">
+      <h2>Top Priorities</h2>
+      <input id="priorityInput" placeholder="Add today’s priority..." />
+      <button onclick="addTask('priority')">Add Priority</button>
+      <div id="priorityList"></div>
+    </div>
+  </section>
+
+  <!-- PLANNER -->
+  <section id="planner" class="page">
+    <div class="card">
+      <h2>Daily Planner</h2>
+      <input id="taskInput" placeholder="Add a task..." />
+      <button onclick="addTask('task')">Add Task</button>
+      <div id="taskList"></div>
+    </div>
+
+    <div class="card">
+      <h2>Quick Notes</h2>
+      <textarea id="quickNotes" placeholder="Capture thoughts, ideas, reminders..."></textarea>
+      <button onclick="saveNotes()">Save Notes</button>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="page">
+    <div class="card">
+      <h2>Hero Projects</h2>
+      <div class="grid">
+        <div class="tile"><span>✈️</span><strong>Travel Plans</strong><small>Trips, routes, bookings</small></div>
+        <div class="tile"><span>💰</span><strong>Financial Goals</strong><small>Savings, investment, budget</small></div>
+        <div class="tile"><span>⚙️</span><strong>Engineering Projects</strong><small>Ideas, automation, CAD</small></div>
+        <div class="tile"><span>📚</span><strong>Books</strong><small>Stories, writing, publishing</small></div>
+        <div class="tile"><span>🎙️</span><strong>Podcast</strong><small>Episodes, scripts, ideas</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Project Notes</h2>
+      <select id="projectType">
+        <option>Travel Plans</option>
+        <option>Financial Goals</option>
+        <option>Engineering Projects</option>
+        <option>Books</option>
+        <option>Podcast</option>
+      </select>
+      <textarea id="projectNote" placeholder="Write project update or next action..."></textarea>
+      <button onclick="saveProjectNote()">Save Project Note</button>
+      <div id="projectNotesList"></div>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section id="learn" class="page">
+    <div class="card">
+      <h2>Hero Learn</h2>
+      <div class="grid">
+        <div class="tile"><span>🔬</span><strong>Science</strong><small>Concepts & research</small></div>
+        <div class="tile"><span>🧲</span><strong>Physics & Mechanics</strong><small>Engineering basics</small></div>
+        <div class="tile"><span>💻</span><strong>Technology</strong><small>AI, coding, tools</small></div>
+        <div class="tile"><span>📈</span><strong>Finance</strong><small>Money & investing</small></div>
+        <div class="tile"><span>🌍</span><strong>History & Geography</strong><small>World knowledge</small></div>
+        <div class="tile"><span>🏛️</span><strong>Politics</strong><small>Systems & current affairs</small></div>
+        <div class="tile"><span>🩺</span><strong>Health & Medical</strong><small>Wellness learning</small></div>
+        <div class="tile"><span>🛠️</span><strong>Skills</strong><small>Practical improvement</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Learning Question</h2>
+      <textarea id="learnQuestion" placeholder="Write what you want to learn today..."></textarea>
+      <button onclick="saveLearning()">Save Learning Topic</button>
+      <div id="learningList"></div>
+    </div>
+  </section>
+
+  <!-- HERO AI -->
+  <section id="ai" class="page">
+    <div class="card hero-card">
+      <h2>Hero AI Console</h2>
+      <p>This v1 console prepares your question. For now, copy the generated prompt and paste it into ChatGPT.</p>
+    </div>
+
+    <div class="card">
+      <h2>Ask Hero</h2>
+      <select id="aiMode">
+        <option>Daily Planning</option>
+        <option>Decision Making</option>
+        <option>Technical Research</option>
+        <option>Finance Help</option>
+        <option>Travel Planning</option>
+        <option>Learning Assistant</option>
+        <option>Health & Medical Learning</option>
+        <option>Skill Building</option>
+      </select>
+      <textarea id="aiQuestion" placeholder="Type your question or problem..."></textarea>
+      <button onclick="generatePrompt()">Generate Hero Prompt</button>
+    </div>
+
+    <div class="card">
+      <h2>Generated Prompt</h2>
+      <div id="promptOutput" class="ai-box">Your Hero prompt will appear here.</div>
+      <div class="btn-row">
+        <button onclick="copyPrompt()">Copy</button>
+        <button class="secondary" onclick="clearPrompt()">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="footer-note">Hero OS v1 • Local-first personal command center</p>
+</div>
+
+<nav class="nav">
+  <button class="active" onclick="showPage('today',this)">Today</button>
+  <button onclick="showPage('planner',this)">Planner</button>
+  <button onclick="showPage('projects',this)">Projects</button>
+  <button onclick="showPage('learn',this)">Learn</button>
+  <button onclick="showPage('ai',this)">Hero AI</button>
+</nav>
+
+<script>
+const storeKey = "heroOSv1";
+
+let data = JSON.parse(localStorage.getItem(storeKey)) || {
+  briefing:"",
+  notes:"",
+  tasks:[],
+  projects:[],
+  learning:[]
+};
+
+function save(){
+  localStorage.setItem(storeKey, JSON.stringify(data));
+  render();
+}
+
+function showPage(id,btn){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function saveBriefing(){
+  data.briefing = document.getElementById("briefing").value;
+  save();
+  alert("Morning briefing saved.");
+}
+
+function saveNotes(){
+  data.notes = document.getElementById("quickNotes").value;
+  save();
+  alert("Notes saved.");
+}
+
+function addTask(type){
+  const input = type==="priority" ? document.getElementById("priorityInput") : document.getElementById("taskInput");
+  const text = input.value.trim();
+  if(!text) return;
+  data.tasks.push({
+    id:Date.now(),
+    text,
+    type,
+    done:false
+  });
+  input.value="";
+  save();
+}
+
+function toggleTask(id){
+  data.tasks = data.tasks.map(t=>t.id===id ? {...t,done:!t.done} : t);
+  save();
+}
+
+function deleteTask(id){
+  data.tasks = data.tasks.filter(t=>t.id!==id);
+  save();
+}
+
+function saveProjectNote(){
+  const type = document.getElementById("projectType").value;
+  const note = document.getElementById("projectNote").value.trim();
+  if(!note) return;
+  data.projects.unshift({
+    id:Date.now(),
+    type,
+    note,
+    date:new Date().toLocaleDateString()
+  });
+  document.getElementById("projectNote").value="";
+  save();
+}
+
+function deleteProject(id){
+  data.projects = data.projects.filter(p=>p.id!==id);
+  save();
+}
+
+function saveLearning(){
+  const q = document.getElementById("learnQuestion").value.trim();
+  if(!q) return;
+  data.learning.unshift({
+    id:Date.now(),
+    question:q,
+    date:new Date().toLocaleDateString()
+  });
+  document.getElementById("learnQuestion").value="";
+  save();
+}
+
+function deleteLearning(id){
+  data.learning = data.learning.filter(l=>l.id!==id);
+  save();
+}
+
+function generatePrompt(){
+  const mode = document.getElementById("aiMode").value;
+  const question = document.getElementById("aiQuestion").value.trim();
+
+  if(!question){
+    alert("Please type your question first.");
+    return;
+  }
+
+  const prompt =
+`You are Hero OS, my personal AI command center.
+
+Mode: ${mode}
+
+My request:
+${question}
+
+Please help me with:
+1. Simple explanation
+2. Step-by-step guidance
+3. Practical action plan
+4. Important risks or things to check
+5. Best next step for me
+
+Keep the response clear, practical, and suitable for execution from iPhone.`;
+
+  document.getElementById("promptOutput").innerText = prompt;
+}
+
+function copyPrompt(){
+  const text = document.getElementById("promptOutput").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Prompt copied.");
+}
+
+function clearPrompt(){
+  document.getElementById("promptOutput").innerText = "Your Hero prompt will appear here.";
+  document.getElementById("aiQuestion").value = "";
+}
+
+function renderTasks(type,containerId){
+  const container = document.getElementById(containerId);
+  const list = data.tasks.filter(t=>t.type===type);
+  container.innerHTML = list.length ? "" : "<p>No items yet.</p>";
+
+  list.forEach(t=>{
+    const div = document.createElement("div");
+    div.className = "task" + (t.done ? " done" : "");
+    div.innerHTML = `
+      <input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${t.id})">
+      <span style="flex:1">${t.text}</span>
+      <button class="danger" onclick="deleteTask(${t.id})">×</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function render(){
+  document.getElementById("todayDate").innerText =
+    new Date().toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+
+  document.getElementById("briefing").value = data.briefing || "";
+  document.getElementById("quickNotes").value = data.notes || "";
+
+  renderTasks("priority","priorityList");
+  renderTasks("task","taskList");
+
+  const openTasks = data.tasks.filter(t=>!t.done).length;
+  document.getElementById("taskCount").innerText = openTasks + " open tasks";
+
+  const pList = document.getElementById("projectNotesList");
+  pList.innerHTML = data.projects.length ? "" : "<p>No project notes yet.</p>";
+  data.projects.forEach(p=>{
+    const div = document.createElement("div");
+    div.className = "task";
+    div.innerHTML = `
+      <span style="flex:1"><strong>${p.type}</strong><br><small>${p.date}</small><br>${p.note}</span>
+      <button class="danger" onclick="deleteProject(${p.id})">×</button>
+    `;
+    pList.appendChild(div);
+  });
+
+  const lList = document.getElementById("learningList");
+  lList.innerHTML = data.learning.length ? "" : "<p>No learning topics yet.</p>";
+  data.learning.forEach(l=>{
+    const div = document.createElement("div");
+    div.className = "task";
+    div.innerHTML = `
+      <span style="flex:1"><small>${l.date}</small><br>${l.question}</span>
+      <button class="danger" onclick="deleteLearning(${l.id})">×</button>
+    `;
+    lList.appendChild(div);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
