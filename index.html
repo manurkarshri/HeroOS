@@ -4,201 +4,614 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#020617">
-<title>HERO OS v2.1 Safe Core</title>
+<title>HERO OS v2.2</title>
+
 <style>
-:root{--bg:#020617;--panel:#0f172a;--line:#263247;--text:#eef2ff;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;--red:#ef4444}
+:root{
+--bg:#020617;
+--panel:#0f172a;
+--line:#263247;
+--text:#eef2ff;
+--muted:#94a3b8;
+--blue:#38bdf8;
+--green:#22c55e;
+--red:#ef4444;
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(circle at top,#123155 0%,transparent 35%),radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),#020617;color:var(--text)}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:18px;padding-bottom:90px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.logo h1{margin:0;letter-spacing:2px;font-size:30px}.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.badge{color:var(--blue);border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);padding:8px 12px;border-radius:999px;font-size:12px}
-.card{background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 20px 45px rgba(0,0,0,.28)}
-.face-card{text-align:center;padding:24px 16px;background:radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),linear-gradient(145deg,#020617,#0f172a)}
-.face{width:190px;height:190px;margin:8px auto 18px;border-radius:50%;border:2px solid rgba(56,189,248,.6);position:relative;box-shadow:0 0 25px rgba(56,189,248,.35),inset 0 0 35px rgba(56,189,248,.18);animation:pulse 3s infinite}
-.face::before{content:"";position:absolute;inset:25px;border-radius:50%;border:1px dashed rgba(56,189,248,.45);animation:spin 12s linear infinite}
-.eye{width:34px;height:16px;background:var(--blue);border-radius:999px;position:absolute;top:72px;box-shadow:0 0 18px var(--blue)}
-.left{left:48px}.right{right:48px}
-.mouth{width:70px;height:10px;background:var(--blue);border-radius:999px;position:absolute;left:50%;bottom:55px;transform:translateX(-50%);box-shadow:0 0 18px var(--blue)}
-@keyframes pulse{50%{box-shadow:0 0 45px rgba(56,189,248,.55),inset 0 0 45px rgba(56,189,248,.25)}}@keyframes spin{to{transform:rotate(360deg)}}
-h2{margin:0 0 10px;font-size:18px}p{color:var(--muted);line-height:1.45}
-textarea,input{width:100%;background:#020617;border:1px solid var(--line);color:var(--text);border-radius:16px;padding:13px;font-size:15px;margin:6px 0}
-textarea{min-height:115px;resize:vertical}
-button{border:0;border-radius:16px;padding:13px 14px;font-weight:800;font-size:14px;background:var(--blue);color:#00111f}
-button.secondary{background:#1f2937;color:var(--text);border:1px solid var(--line)}
-.row{display:flex;gap:8px}.row button{flex:1}
-.response{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;white-space:pre-wrap;min-height:150px;color:#dbeafe}
-.status{color:var(--green);font-size:13px}.small{font-size:12px;color:var(--muted)}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:520px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(2,6,23,.97);border-top:1px solid var(--line);padding:8px}
-.nav button{background:transparent;color:var(--muted);font-size:12px}.nav button.active{color:var(--blue)}
-.page{display:none}.page.active{display:block}.log{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:
+radial-gradient(circle at top,#123155 0%,transparent 35%),
+radial-gradient(circle at bottom,#1e1b4b 0%,transparent 35%),
+#020617;
+color:var(--text);
+}
+
+.app{
+max-width:520px;
+margin:auto;
+min-height:100vh;
+padding:18px;
+padding-bottom:90px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px;
+}
+
+.logo h1{
+margin:0;
+font-size:30px;
+letter-spacing:2px;
+}
+
+.logo p{
+margin:4px 0 0;
+color:var(--muted);
+font-size:13px;
+}
+
+.badge{
+color:var(--blue);
+border:1px solid rgba(56,189,248,.45);
+background:rgba(56,189,248,.12);
+padding:8px 12px;
+border-radius:999px;
+font-size:12px;
+}
+
+.card{
+background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(17,24,39,.96));
+border:1px solid var(--line);
+border-radius:24px;
+padding:16px;
+margin-bottom:14px;
+box-shadow:0 20px 45px rgba(0,0,0,.28);
+}
+
+.face-card{
+text-align:center;
+padding:24px 16px;
+background:
+radial-gradient(circle at center,rgba(56,189,248,.18),transparent 55%),
+linear-gradient(145deg,#020617,#0f172a);
+}
+
+.face{
+width:190px;
+height:190px;
+margin:8px auto 18px;
+border-radius:50%;
+border:2px solid rgba(56,189,248,.6);
+position:relative;
+box-shadow:
+0 0 25px rgba(56,189,248,.35),
+inset 0 0 35px rgba(56,189,248,.18);
+animation:pulse 3s infinite;
+}
+
+.face::before{
+content:"";
+position:absolute;
+inset:25px;
+border-radius:50%;
+border:1px dashed rgba(56,189,248,.45);
+animation:spin 12s linear infinite;
+}
+
+.eye{
+width:34px;
+height:16px;
+background:var(--blue);
+border-radius:999px;
+position:absolute;
+top:72px;
+box-shadow:0 0 18px var(--blue);
+}
+
+.left{left:48px}
+.right{right:48px}
+
+.mouth{
+width:70px;
+height:10px;
+background:var(--blue);
+border-radius:999px;
+position:absolute;
+left:50%;
+bottom:55px;
+transform:translateX(-50%);
+box-shadow:0 0 18px var(--blue);
+}
+
+@keyframes pulse{
+50%{
+box-shadow:
+0 0 45px rgba(56,189,248,.55),
+inset 0 0 45px rgba(56,189,248,.25);
+}
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+.status{
+color:var(--green);
+font-size:13px;
+}
+
+h2{
+margin:0 0 10px;
+font-size:18px;
+}
+
+p{
+color:var(--muted);
+line-height:1.45;
+}
+
+textarea{
+width:100%;
+background:#020617;
+border:1px solid var(--line);
+color:var(--text);
+border-radius:16px;
+padding:13px;
+font-size:15px;
+margin:6px 0;
+min-height:120px;
+resize:vertical;
+}
+
+button{
+border:0;
+border-radius:16px;
+padding:13px 14px;
+font-weight:800;
+font-size:14px;
+background:var(--blue);
+color:#00111f;
+cursor:pointer;
+}
+
+button.secondary{
+background:#1f2937;
+color:var(--text);
+border:1px solid var(--line);
+}
+
+.row{
+display:flex;
+gap:8px;
+}
+
+.row button{
+flex:1;
+}
+
+.response{
+background:#020617;
+border:1px solid var(--line);
+border-radius:18px;
+padding:14px;
+white-space:pre-wrap;
+min-height:180px;
+color:#dbeafe;
+}
+
+.info{
+font-size:13px;
+color:var(--muted);
+margin-top:10px;
+}
+
+.nav{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+max-width:520px;
+width:100%;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+background:rgba(2,6,23,.97);
+border-top:1px solid var(--line);
+padding:8px;
+}
+
+.nav button{
+background:transparent;
+color:var(--muted);
+font-size:12px;
+}
+
+.nav button.active{
+color:var(--blue);
+}
+
+.page{display:none}
+.page.active{display:block}
 </style>
 </head>
-<body>
-<div class="app">
-<div class="header"><div class="logo"><h1>HERO</h1><p>Personal AI Command System</p></div><div class="badge">v2.1 Safe</div></div>
 
-<section id="core" class="page active">
+<body>
+
+<div class="app">
+
+<div class="header">
+<div class="logo">
+<h1>HERO</h1>
+<p>Context-Aware AI Command System</p>
+</div>
+<div class="badge">v2.2</div>
+</div>
+
+<section id="hero" class="page active">
+
 <div class="card face-card">
-<div class="face"><div class="eye left"></div><div class="eye right"></div><div class="mouth"></div></div>
-<div class="status" id="heroStatus">HERO online • Awaiting command</div>
+<div class="face">
+<div class="eye left"></div>
+<div class="eye right"></div>
+<div class="mouth"></div>
+</div>
+
+<div class="status" id="heroStatus">
+HERO online • Awaiting command
+</div>
 </div>
 
 <div class="card">
 <h2>Command HERO</h2>
-<p class="small">Use iPhone keyboard dictation mic, or type your command.</p>
-<textarea id="command" placeholder="Example: Hero, I bought half kg potato at 40 per kg, 2 kg tomato at 10 per kg and 3 kg onion at 15 per kg. Calculate my bill."></textarea>
+
+<p>
+Use microphone or type naturally.
+</p>
+
+<textarea id="command" placeholder="Example: Hero, should I leave for office at 10 AM today?"></textarea>
+
 <div class="row">
+<button onclick="startVoice()">🎤 Speak</button>
 <button onclick="processCommand()">Activate HERO</button>
-<button class="secondary" onclick="clearCommand()">Clear</button>
+</div>
+
+<button class="secondary" style="width:100%;margin-top:8px" onclick="clearCommand()">
+Clear
+</button>
+
+<div class="info" id="locationInfo">
+Location not detected yet.
 </div>
 </div>
 
 <div class="card">
 <h2>HERO Response</h2>
-<div id="response" class="response">Ready.</div>
-<div class="row" style="margin-top:8px">
-<button onclick="copyResponse()">Copy Response</button>
-<button class="secondary" onclick="copyHeroPrompt()">Copy AI Prompt</button>
+<div class="response" id="response">
+Ready.
 </div>
 </div>
+
 </section>
 
 <section id="memory" class="page">
+
 <div class="card">
 <h2>HERO Memory</h2>
-<textarea id="memoryBox" placeholder="Store goals, routines, office location, preferences, important notes..."></textarea>
+
+<textarea id="memoryBox" placeholder="Store office location, routines, goals, preferences, important notes..."></textarea>
+
 <button onclick="saveMemory()">Save Memory</button>
 </div>
-<div class="card"><h2>Command History</h2><div id="history"></div></div>
+
 </section>
 
-<section id="settings" class="page">
-<div class="card">
-<h2>Next AI Upgrade</h2>
-<p>For real cloud AI, we will use a secure backend later. This avoids exposing your API key in GitHub or browser code.</p>
-<p class="small">Current version is safe for GitHub Pages and works as the foundation.</p>
-</div>
-</section>
 </div>
 
 <nav class="nav">
-<button class="active" onclick="showPage('core',this)">HERO</button>
+<button class="active" onclick="showPage('hero',this)">HERO</button>
 <button onclick="showPage('memory',this)">Memory</button>
-<button onclick="showPage('settings',this)">Settings</button>
 </nav>
 
 <script>
-const storeKey="heroSafeCoreV21";
-let data=JSON.parse(localStorage.getItem(storeKey))||{memory:"",history:[],lastPrompt:""};
 
-function save(){localStorage.setItem(storeKey,JSON.stringify(data));render();}
-function showPage(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
-function clearCommand(){document.getElementById("command").value="";document.getElementById("response").innerText="Ready.";}
-function saveMemory(){data.memory=document.getElementById("memoryBox").value;save();alert("HERO memory saved.");}
+const storeKey="heroV22";
 
-function processCommand(){
- const cmd=document.getElementById("command").value.trim();
- if(!cmd){alert("Please enter or dictate a command.");return;}
- document.getElementById("heroStatus").innerText="HERO analysing...";
- let reply=analyseCommand(cmd);
- document.getElementById("response").innerText=reply;
- document.getElementById("heroStatus").innerText="HERO online • Response ready";
- data.history.unshift({date:new Date().toLocaleString(),command:cmd,response:reply});
- data.history=data.history.slice(0,20);
- data.lastPrompt=buildHeroPrompt(cmd);
- save();
+let data=JSON.parse(localStorage.getItem(storeKey))||{
+memory:""
+};
+
+let currentWeather=null;
+let currentLocation=null;
+
+function save(){
+localStorage.setItem(storeKey,JSON.stringify(data));
 }
 
-function analyseCommand(cmd){
- const text=cmd.toLowerCase();
- if(text.includes("kg") || text.includes("per kg") || text.includes("bill")) return calculateBill(cmd);
- if(text.includes("office") || text.includes("weather") || text.includes("traffic") || text.includes("route")){
-  return `I understand this as a travel safety request.
+function render(){
+document.getElementById("memoryBox").value=data.memory||"";
+}
 
-To answer correctly, HERO needs live:
-1. Current location
-2. Destination / office location
-3. Weather around travel time
-4. Traffic and route data
-5. Road closure / protest / diversion data
+function showPage(id,btn){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 
-Current safe version cannot check live data yet.
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+}
 
-Practical guidance:
-- Check weather before leaving
-- Check maps traffic before departure
-- Keep 15–30 minutes buffer
-- Avoid heavy rain or peak traffic window
-- Next upgrade will add live weather and location awareness.`;
- }
- return `Command received.
+function saveMemory(){
+data.memory=document.getElementById("memoryBox").value;
+save();
+alert("HERO memory saved.");
+}
 
-I understand your request:
+function clearCommand(){
+document.getElementById("command").value="";
+document.getElementById("response").innerText="Ready.";
+}
+
+function startVoice(){
+
+const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+alert("Speech recognition not supported. Use iPhone keyboard dictation.");
+return;
+}
+
+const recognition=new SpeechRecognition();
+
+recognition.lang="en-IN";
+recognition.interimResults=false;
+recognition.maxAlternatives=1;
+
+document.getElementById("heroStatus").innerText="HERO listening...";
+
+recognition.start();
+
+recognition.onresult=function(event){
+
+const transcript=event.results[0][0].transcript;
+
+document.getElementById("command").value=transcript;
+
+document.getElementById("heroStatus").innerText="Command captured";
+};
+
+recognition.onerror=function(){
+document.getElementById("heroStatus").innerText="Voice capture failed";
+};
+
+}
+
+async function getLocation(){
+
+return new Promise((resolve,reject)=>{
+
+if(!navigator.geolocation){
+reject("Geolocation not supported");
+return;
+}
+
+navigator.geolocation.getCurrentPosition(
+
+position=>{
+
+currentLocation={
+lat:position.coords.latitude,
+lon:position.coords.longitude
+};
+
+document.getElementById("locationInfo").innerText=
+`Location detected • Lat ${currentLocation.lat.toFixed(2)}, Lon ${currentLocation.lon.toFixed(2)}`;
+
+resolve(currentLocation);
+
+},
+
+error=>{
+reject(error.message);
+}
+
+);
+
+});
+
+}
+
+async function getWeather(lat,lon){
+
+const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+const response=await fetch(url);
+
+const json=await response.json();
+
+currentWeather=json.current_weather;
+
+return currentWeather;
+
+}
+
+async function processCommand(){
+
+const cmd=document.getElementById("command").value.trim();
+
+if(!cmd){
+alert("Please enter or speak a command.");
+return;
+}
+
+document.getElementById("heroStatus").innerText="HERO analysing...";
+document.getElementById("response").innerText="Thinking...";
+
+try{
+
+await getLocation();
+
+await getWeather(currentLocation.lat,currentLocation.lon);
+
+const reply=generateResponse(cmd);
+
+document.getElementById("response").innerText=reply;
+
+document.getElementById("heroStatus").innerText="HERO online • Response ready";
+
+}
+catch(err){
+
+document.getElementById("response").innerText=
+`HERO could not access contextual information.
+
+Possible reasons:
+- Location permission denied
+- Internet unavailable
+- Weather service issue
+
+Error:
+${err}`;
+
+document.getElementById("heroStatus").innerText="Context access failed";
+}
+
+}
+
+function generateResponse(cmd){
+
+const text=cmd.toLowerCase();
+
+if(
+text.includes("office") ||
+text.includes("leave") ||
+text.includes("travel")
+){
+
+if(!currentWeather){
+return "Weather information unavailable.";
+}
+
+const temp=currentWeather.temperature;
+const wind=currentWeather.windspeed;
+const weatherCode=currentWeather.weathercode;
+
+let weatherSummary="Conditions appear stable.";
+
+if(weatherCode>50){
+weatherSummary="Rain or unstable weather may occur.";
+}
+
+let recommendation="";
+
+if(weatherCode>50){
+recommendation="Consider leaving 15–20 minutes earlier and carry umbrella/rain protection.";
+}
+else if(temp>35){
+recommendation="High temperature detected. Carry water and avoid unnecessary delay.";
+}
+else{
+recommendation="Travel conditions appear generally acceptable.";
+}
+
+return `Context analysis completed.
+
+Current temperature:
+${temp}°C
+
+Wind speed:
+${wind} km/h
+
+Weather assessment:
+${weatherSummary}
+
+Recommendation:
+${recommendation}
+
+For complete route intelligence, traffic integration will be added in HERO v2.3.`;
+}
+
+if(
+text.includes("bill") ||
+text.includes("kg") ||
+text.includes("per kg")
+){
+return calculateBill(cmd);
+}
+
+return `Command received:
+
 "${cmd}"
 
-For deep reasoning, copy the AI Prompt and paste it into ChatGPT.
+Current HERO capabilities:
+- Voice interaction
+- Context-aware weather guidance
+- Location awareness
+- Bill calculation
+- Memory system
 
-HERO will later connect to cloud AI through a secure backend.`;
+Future upgrades:
+- Traffic intelligence
+- AI reasoning engine
+- Route hazard detection
+- Discipline coaching
+- Smart proactive alerts`;
 }
 
 function calculateBill(cmd){
- let text=cmd.toLowerCase();
- const words={half:"0.5",one:"1",two:"2",three:"3",four:"4",five:"5",six:"6",seven:"7",eight:"8",nine:"9",ten:"10"};
- Object.keys(words).forEach(w=>{text=text.replaceAll(w+" kg",words[w]+" kg");});
- const pattern=/(\d+(\.\d+)?)\s*kg\s+(?:of\s+)?([a-zA-Z]+).*?(?:at|priced|price|rate)?\s*₹?\s*(\d+)\s*(?:per kg|\/kg|kg)/g;
- let match,total=0,lines=[];
- while((match=pattern.exec(text))!==null){
-  const qty=parseFloat(match[1]), item=match[3], rate=parseFloat(match[4]), cost=qty*rate;
-  total+=cost;lines.push(`${cap(item)}: ${qty} kg × ₹${rate}/kg = ₹${cost}`);
- }
- if(!lines.length)return "I could not clearly detect quantity, item and rate. Try: 0.5 kg potato at 40 per kg, 2 kg tomato at 10 per kg.";
- return `Bill calculation completed:\n\n${lines.join("\n")}\n\nTotal amount to pay: ₹${total}`;
+
+let text=cmd.toLowerCase();
+
+text=text.replace(/half kg/g,"0.5 kg");
+
+const pattern=/(\d+(\.\d+)?)\s*kg\s+([a-zA-Z]+).*?(\d+)\s*(?:per kg|\/kg|kg)/g;
+
+let match;
+let total=0;
+let lines=[];
+
+while((match=pattern.exec(text))!==null){
+
+const qty=parseFloat(match[1]);
+const item=match[3];
+const rate=parseFloat(match[4]);
+
+const cost=qty*rate;
+
+total+=cost;
+
+lines.push(
+`${capitalize(item)}: ${qty} kg × ₹${rate}/kg = ₹${cost}`
+);
 }
 
-function buildHeroPrompt(cmd){
- return `You are HERO, my calm, disciplined, intelligent personal AI companion.
+if(lines.length===0){
 
-Your role:
-- Guide me
-- Keep me safe
-- Organise and plan my day
-- Train me with discipline
-- Explain technology, mechanics, history, politics, economics, medical basics and daily-life topics
-- Give practical step-by-step advice
+return `I could not properly detect quantity and rates.
 
-My saved memory:
-${data.memory || "No saved memory yet."}
-
-My command:
-${cmd}
-
-Please respond with:
-1. Direct answer
-2. Practical reasoning
-3. Step-by-step action plan
-4. Risks / things to verify
-5. Best next action
-
-Keep it clear, realistic and useful from an iPhone.`;
+Try:
+0.5 kg potato at 40 per kg
+2 kg tomato at 10 per kg`;
 }
 
-function copyHeroPrompt(){navigator.clipboard.writeText(data.lastPrompt||buildHeroPrompt(document.getElementById("command").value));alert("AI prompt copied.");}
-function copyResponse(){navigator.clipboard.writeText(document.getElementById("response").innerText);alert("Response copied.");}
-function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+return `Bill calculation completed:
 
-function render(){
- document.getElementById("memoryBox").value=data.memory||"";
- const h=document.getElementById("history");
- h.innerHTML=data.history.length?"":"<p>No command history yet.</p>";
- data.history.forEach(x=>{
-  const d=document.createElement("div");
-  d.className="log";
-  d.innerHTML=`<strong>${x.date}</strong><br>${x.command}<br><br><span style="color:#dbeafe">${x.response}</span>`;
-  h.appendChild(d);
- });
+${lines.join("\n")}
+
+Total amount to pay: ₹${total}`;
 }
+
+function capitalize(s){
+return s.charAt(0).toUpperCase()+s.slice(1);
+}
+
 render();
+
 </script>
+
 </body>
 </html>
